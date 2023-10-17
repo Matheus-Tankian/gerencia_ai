@@ -19,9 +19,27 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Splash page'),
+        child: RichText(
+          text: const TextSpan(
+              text: 'Gerencia ',
+              style: TextStyle(
+                fontSize: 42,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFFFF941A),
+              ),
+              children: [
+                TextSpan(
+                  text: 'AÍ',
+                  style: TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0XFF706E7A),
+                  ),
+                ),
+              ]),
+        ),
       ),
     );
   }
