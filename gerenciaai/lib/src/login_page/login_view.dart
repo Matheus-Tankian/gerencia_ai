@@ -28,6 +28,42 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Positioned(
+              top: 34,
+              left: -2,
+              child: Container(
+                height: 20,
+                width: 20,
+                decoration: const BoxDecoration(
+                  color: Color(0xffFFB133),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
+            ),
+            Positioned(
+              top: -80,
+              left: 240,
+              child: Container(
+                height: 250,
+                width: 250,
+                decoration: const BoxDecoration(
+                  color: Color(0xffFFB133),
+                  borderRadius: BorderRadius.all(Radius.circular(125)),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 160,
+              left: 30,
+              child: Container(
+                height: 80,
+                width: 80,
+                decoration: const BoxDecoration(
+                  color: Color(0xffFFB133),
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                ),
+              ),
+            ),
+            Positioned(
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -57,6 +93,9 @@ class LoginView extends StatelessWidget {
                       const TextField(
                         decoration: InputDecoration(
                           hintText: 'Insira seu email',
+                          hintStyle: TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -68,16 +107,48 @@ class LoginView extends StatelessWidget {
                           fontSize: 18,
                         ),
                       ),
-                      const TextField(
+                      TextField(
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.visibility_off),
+                            onPressed: () {
+                              //visibility_off
+                              // visibility
+                            },
+                          ),
                           hintText: 'Insira sua password',
+                          hintStyle: const TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
                         ),
                         obscureText: true,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 18),
+                      const Row(
+                        children: [
+                          Text(
+                            'Continuar loggado?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Color(0xff707070),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'Esqueceu a senha?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: Color(0xff707070),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 38),
                       Container(
                         decoration: const BoxDecoration(
-                            color: Colors.orange,
+                            color: Color(0xffF9A826),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         height: 50,
@@ -89,6 +160,29 @@ class LoginView extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: RichText(
+                          text: const TextSpan(
+                            text: 'Não tem uma conta? Registre-se ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'aqui!',
+                                style: TextStyle(
+                                  color: Color(0xffF9A826),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
