@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
+import 'package:gerenciaai/src/login_page/create_account_view.dart';
 import 'package:gerenciaai/src/login_page/login_view.dart';
 import 'package:gerenciaai/src/splash_page/splash_view.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Routes.splashPage: (context) => const SplashView(),
         Routes.loginPage: (context) => const LoginView(),
+        Routes.createAccountPage: (context) => const CreateAccountView(),
       },
       //home: const SplashView(),
     );

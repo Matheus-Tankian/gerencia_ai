@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciaai/src/app/routes/routes.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class CreateAccountView extends StatelessWidget {
+  const CreateAccountView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class LoginView extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.only(left: 30, top: 70),
                 child: Text(
-                  'Login',
+                  'Register',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     color: Colors.white,
@@ -83,6 +82,22 @@ class LoginView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     // Alinhe os elementos ao centro
                     children: [
+                      const Text(
+                        'Nome',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Insira seu nome',
+                          hintStyle: TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
+                        ),
+                      ),
                       const Text(
                         'Email',
                         style: TextStyle(
@@ -169,30 +184,24 @@ class LoginView extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Center(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(Routes.createAccountPage);
-                          },
-                          child: RichText(
-                            text: const TextSpan(
-                              text: 'Não tem uma conta? Registre-se ',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: 'aqui!',
-                                  style: TextStyle(
-                                    color: Color(0xffF9A826),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
+                        child: RichText(
+                          text: const TextSpan(
+                            text: 'Não tem uma conta? Registre-se ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
                             ),
+                            children: [
+                              TextSpan(
+                                text: 'aqui!',
+                                style: TextStyle(
+                                  color: Color(0xffF9A826),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
