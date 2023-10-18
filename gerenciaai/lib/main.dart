@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 import 'package:gerenciaai/src/login_page/create_account_view.dart';
 import 'package:gerenciaai/src/login_page/login_view.dart';
 import 'package:gerenciaai/src/splash_page/splash_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -101,7 +101,7 @@ class LoginView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       const Text(
-                        'Password',
+                        'Senha',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class LoginView extends StatelessWidget {
                               // visibility
                             },
                           ),
-                          hintText: 'Insira sua password',
+                          hintText: 'Insira sua Senha',
                           hintStyle: const TextStyle(
                             color: Color(0xffADADAD),
                           ),
@@ -126,16 +126,31 @@ class LoginView extends StatelessWidget {
                       ),
                       const SizedBox(height: 18),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Continuar loggado?',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xff707070),
-                            ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: Checkbox(
+                                  value: false,
+                                  onChanged: (newValue) {},
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Text(
+                                'Continuar loggado?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xff707070),
+                                ),
+                              ),
+                            ],
                           ),
-                          const Spacer(),
+
+                          // const Spacer(),
                           InkWell(
                             onTap: () {},
                             child: const Text(

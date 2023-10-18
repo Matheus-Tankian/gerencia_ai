@@ -98,6 +98,7 @@ class CreateAccountView extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 16),
                       const Text(
                         'Email',
                         style: TextStyle(
@@ -116,7 +117,7 @@ class CreateAccountView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       const Text(
-                        'Password',
+                        'Senha',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -139,69 +140,51 @@ class CreateAccountView extends StatelessWidget {
                         ),
                         obscureText: true,
                       ),
-                      const SizedBox(height: 18),
-                      Row(
-                        children: [
-                          const Text(
-                            'Continuar loggado?',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xff707070),
-                            ),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                            onTap: () {},
-                            child: const Text(
-                              'Esqueceu a senha?',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Color(0xff707070),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 38),
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Color(0xffF9A826),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 50,
-                        child: const Center(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Confirme sua senha novamente',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      Center(
-                        child: RichText(
-                          text: const TextSpan(
-                            text: 'Não tem uma conta? Registre-se ',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'aqui!',
-                                style: TextStyle(
-                                  color: Color(0xffF9A826),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                      TextField(
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.visibility_off),
+                            onPressed: () {
+                              //visibility_off
+                              // visibility
+                            },
+                          ),
+                          hintText: 'Insira sua password',
+                          hintStyle: const TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
+                        ),
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 38),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Color(0xffF9A826),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          height: 50,
+                          child: const Center(
+                            child: Text(
+                              'Salvar',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
