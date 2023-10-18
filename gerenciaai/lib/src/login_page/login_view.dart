@@ -165,19 +165,25 @@ class LoginView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 38),
-                      Container(
-                        decoration: const BoxDecoration(
-                            color: Color(0xffF9A826),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        height: 50,
-                        child: const Center(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, Routes.homePage, (route) => false);
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Color(0xffF9A826),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          height: 50,
+                          child: const Center(
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
