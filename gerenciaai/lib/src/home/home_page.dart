@@ -135,7 +135,7 @@ class _BarChart extends StatelessWidget {
             return BarTooltipItem(
               rod.toY.round().toString(),
               const TextStyle(
-                color: Color(0xff00A2D3),
+                color: Color(0xffff4700),
                 fontWeight: FontWeight.bold,
               ),
             );
@@ -145,7 +145,7 @@ class _BarChart extends StatelessWidget {
 
   Widget getTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Color(0xff003065),
+      color: Color(0xff111111),
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
@@ -224,8 +224,9 @@ class _BarChart extends StatelessWidget {
 
   LinearGradient get _barsGradient => const LinearGradient(
         colors: [
-          Color(0xff003065),
-          Color(0xff00A2D3),
+          Color(0xffdd2300),
+          Color(0xffff4700),
+          Color(0xffff6625),
         ],
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
