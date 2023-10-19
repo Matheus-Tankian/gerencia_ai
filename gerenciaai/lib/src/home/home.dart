@@ -113,7 +113,11 @@ class ThirdPage extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return const Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                      top: 16,
+                      left: 8,
+                      right: 8,
+                    ),
                     child: CardNotaWidget(),
                   );
                 },
