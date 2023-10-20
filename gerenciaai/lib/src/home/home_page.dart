@@ -73,7 +73,10 @@ class HomePage extends StatelessWidget {
                   5,
                   (index) {
                     return Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.only(
+                        right: 20,
+                        bottom: 10,
+                      ),
                       child: InkWell(
                         onTap: () {
                           log('item: $index');
@@ -114,11 +117,19 @@ class HomePage extends StatelessWidget {
                           Container(
                             height: 80,
                             width: 80,
-                            decoration: const BoxDecoration(
-                              color: Color(0xffffc041),
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              color: const Color(0xffffc041),
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 4,
+                                  offset: const Offset(
+                                      4, 8), // changes position of shadow
+                                ),
+                              ],
                             ),
                             child: const Center(
                               child: Icon(
@@ -143,8 +154,6 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //==========
-
                     InkWell(
                       onTap: () {
                         log('anual');
@@ -154,11 +163,19 @@ class HomePage extends StatelessWidget {
                           Container(
                             height: 80,
                             width: 80,
-                            decoration: const BoxDecoration(
-                              color: Color(0xffffc041),
-                              borderRadius: BorderRadius.all(
+                            decoration: BoxDecoration(
+                              color: const Color(0xffffc041),
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(8),
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 4,
+                                  offset: const Offset(
+                                      4, 8), // changes position of shadow
+                                ),
+                              ],
                             ),
                             child: const Center(
                               child: Icon(

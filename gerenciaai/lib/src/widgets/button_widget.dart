@@ -22,11 +22,18 @@ class ButtonWidget extends StatelessWidget {
       onTap: onTap ?? () {},
       child: Container(
         decoration: decoration ??
-            const BoxDecoration(
-              color: Color(0xffF9A826),
-              borderRadius: BorderRadius.all(
+            BoxDecoration(
+              color: const Color(0xffF9A826),
+              borderRadius: const BorderRadius.all(
                 Radius.circular(20),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 4,
+                  offset: const Offset(4, 8), // changes position of shadow
+                ),
+              ],
             ),
         height: height ?? 50,
         child: Center(

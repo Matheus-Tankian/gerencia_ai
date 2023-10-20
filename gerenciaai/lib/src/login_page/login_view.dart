@@ -171,10 +171,20 @@ class LoginView extends StatelessWidget {
                               context, Routes.homePage, (route) => false);
                         },
                         child: Container(
-                          decoration: const BoxDecoration(
-                              color: Color(0xffF9A826),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF9A826),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                blurRadius: 4,
+                                offset: const Offset(
+                                    4, 8), // changes position of shadow
+                              ),
+                            ],
+                          ),
                           height: 50,
                           child: const Center(
                             child: Text(

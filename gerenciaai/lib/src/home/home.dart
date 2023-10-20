@@ -28,8 +28,7 @@ class _HomeState extends State<Home> {
           height: 48,
           animationDuration: const Duration(milliseconds: 300),
           color: const Color(0xfff9a826),
-          backgroundColor:
-              Colors.transparent, //Colors.white, //const Color(0xfffff0dc),
+          backgroundColor: const Color(0xffcb8a24), // const Color(0xfffff0dc),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
