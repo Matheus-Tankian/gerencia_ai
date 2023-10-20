@@ -26,7 +26,7 @@ class CardNotaWidget extends StatelessWidget {
       height: height ?? 210,
       decoration: cardDecoration ??
           const BoxDecoration(
-            color: Color(0xffF9A826),
+            color: Color(0xffd08600),
             borderRadius: BorderRadius.all(
               Radius.circular(15),
             ),
@@ -49,13 +49,13 @@ class CardNotaWidget extends StatelessWidget {
                     const Icon(
                       Icons.build_outlined,
                       size: 20,
-                      color: Colors.white,
+                      color: Color(0xfffff0dc),
                     ),
                     const SizedBox(width: 8),
                     const Text(
                       'Projeto 1',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xfffff0dc),
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -66,7 +66,7 @@ class CardNotaWidget extends StatelessWidget {
                 const Text(
                   'Front End Development',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xfffff0dc),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -75,7 +75,7 @@ class CardNotaWidget extends StatelessWidget {
                 const Text(
                   'Setembro 2023',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xfffff0dc),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
