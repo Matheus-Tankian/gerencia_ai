@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/add_page.dart';
 import 'package:gerenciaai/src/home/home_page.dart';
@@ -23,25 +24,31 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         body: _pages[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (int index) {
+        bottomNavigationBar: CurvedNavigationBar(
+          height: 48,
+          animationDuration: const Duration(milliseconds: 300),
+          color: const Color(0xfff9a826),
+          backgroundColor: const Color(0xffcb8a24), // const Color(0xfffff0dc),
+          onTap: (index) {
             setState(() {
               _currentIndex = index;
             });
           },
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Page 1',
+            Icon(
+              Icons.home,
+              size: 30,
+              color: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              label: 'Page 2',
+            Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_outlined),
-              label: 'Page 3',
+            Icon(
+              Icons.assignment_outlined,
+              size: 30,
+              color: Colors.white,
             ),
           ],
         ),
@@ -113,7 +120,11 @@ class ThirdPage extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return const Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.only(
+                      top: 16,
+                      left: 8,
+                      right: 8,
+                    ),
                     child: CardNotaWidget(),
                   );
                 },
