@@ -15,21 +15,33 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16),
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Olá, Vitor!',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                RichText(
+                  text: const TextSpan(
+                    text: 'Olá ',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Vitor',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffF9A826),
+                        ),
+                      ),
+                    ],
                   ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Text(
+                const Text(
                   'Tenha um bom dia!',
                   textAlign: TextAlign.start,
                   style: TextStyle(
@@ -38,10 +50,10 @@ class HomePage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 20),
-                TextFieldWidget(),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 20),
+                const TextFieldWidget(),
+                const SizedBox(height: 16),
+                const Text(
                   'Serviços recentes',
                   style: TextStyle(
                     color: Colors.black,
