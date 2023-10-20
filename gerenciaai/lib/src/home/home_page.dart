@@ -78,7 +78,9 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           log('item: $index');
                         },
-                        child: const CardNotaWidget(),
+                        child: const CardNotaWidget(
+                          height: 180,
+                        ),
                       ),
                     );
                   },
@@ -205,8 +207,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-//grafico
-
-
-

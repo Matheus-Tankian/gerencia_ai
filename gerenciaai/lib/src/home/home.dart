@@ -25,10 +25,11 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         body: _pages[_currentIndex],
         bottomNavigationBar: CurvedNavigationBar(
-          height: 60,
+          height: 48,
           animationDuration: const Duration(milliseconds: 300),
           color: const Color(0xfff9a826),
-          backgroundColor: const Color(0xffd08600),
+          backgroundColor:
+              Colors.transparent, //Colors.white, //const Color(0xfffff0dc),
           onTap: (index) {
             setState(() {
               _currentIndex = index;
