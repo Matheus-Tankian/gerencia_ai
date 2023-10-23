@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/add_page.dart';
 import 'package:gerenciaai/src/home/home_page.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
+import 'package:gerenciaai/src/widgets/page_nota.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -119,13 +122,28 @@ class ThirdPage extends StatelessWidget {
                   crossAxisCount: 2,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(
+                  return Padding(
+                    padding: const EdgeInsets.only(
                       top: 16,
                       left: 8,
                       right: 8,
                     ),
-                    child: CardNotaWidget(),
+                    child: CardNotaWidget(
+                      tap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PageNota(
+                              id: index,
+                              nome: 'nome',
+                              data: '1$index oct 2022',
+                              descricao: 'descriçao',
+                              valor: 200,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
               ),

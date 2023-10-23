@@ -137,7 +137,7 @@ class BarChartWidget extends StatelessWidget {
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 2000,
+              toY: 2500,
               gradient: _barsGradient,
             )
           ],
@@ -147,7 +147,7 @@ class BarChartWidget extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 2000,
+              toY: 2200,
               gradient: _barsGradient,
             )
           ],
@@ -157,7 +157,7 @@ class BarChartWidget extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 2000,
+              toY: 1600,
               gradient: _barsGradient,
             )
           ],

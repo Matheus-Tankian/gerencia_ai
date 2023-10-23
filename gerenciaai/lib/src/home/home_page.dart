@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
+import 'package:gerenciaai/src/widgets/page_nota.dart';
 import 'package:gerenciaai/src/widgets/textfield_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -81,8 +82,22 @@ class HomePage extends StatelessWidget {
                         onTap: () {
                           log('item: $index');
                         },
-                        child: const CardNotaWidget(
+                        child: CardNotaWidget(
                           height: 180,
+                          tap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PageNota(
+                                  id: index,
+                                  nome: 'nome',
+                                  data: '1$index oct 2022',
+                                  descricao: 'descriçao',
+                                  valor: 200,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     );
