@@ -5,7 +5,6 @@ import 'package:gerenciaai/src/home/home.dart';
 import 'package:gerenciaai/src/login_page/create_account_view.dart';
 import 'package:gerenciaai/src/login_page/login_view.dart';
 import 'package:gerenciaai/src/splash_page/splash_view.dart';
-import 'package:gerenciaai/src/widgets/page_nota.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
