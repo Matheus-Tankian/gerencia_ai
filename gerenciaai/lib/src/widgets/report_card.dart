@@ -38,7 +38,7 @@ class ReportCard extends StatelessWidget {
                         TextSpan(
                           text: 'AÍ',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Color(0XFF706E7A),
                           ),
