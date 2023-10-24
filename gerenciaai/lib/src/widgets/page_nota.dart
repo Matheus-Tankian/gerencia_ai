@@ -214,12 +214,18 @@ class PageNota extends StatelessWidget {
                       Container(
                         height: 260,
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFf5f5f5),
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(8),
                           ),
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 2,
+                          ),
                         ),
+                        child:
+                            const Center(child: Text('O arquivo esta vazio!')),
                       ),
                     ],
                   ),

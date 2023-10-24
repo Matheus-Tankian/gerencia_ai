@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
-import 'package:gerenciaai/src/widgets/textfield_widget.dart';
+import 'package:gerenciaai/src/widgets/report_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -51,8 +51,6 @@ class HomePage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 20),
-                const TextFieldWidget(),
                 const SizedBox(height: 16),
                 const Text(
                   'Serviços recentes',
@@ -65,45 +63,42 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SingleChildScrollView(
+          SizedBox(
+            height: 180,
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  5,
-                  (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          log('item: $index');
-                        },
-                        child: CardNotaWidget(
-                          height: 180,
-                          tap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageNota(
-                                  id: index,
-                                  nome: 'nome',
-                                  data: '1$index oct 2022',
-                                  descricao: 'descriçao',
-                                  valor: 200,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              padding: const EdgeInsets.only(left: 16),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                    bottom: 10,
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      log('item: $index');
+                    },
+                    child: CardNotaWidget(
+                      height: 180,
+                      tap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PageNota(
+                              id: index,
+                              nome: 'nome',
+                              data: '1$index oct 2022',
+                              descricao: 'descriçao',
+                              valor: 200,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           Padding(
@@ -126,6 +121,12 @@ class HomePage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         log('mensal');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ReportCard(),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -142,7 +143,9 @@ class HomePage extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.5),
                                   blurRadius: 4,
                                   offset: const Offset(
-                                      4, 8), // changes position of shadow
+                                    4,
+                                    8,
+                                  ),
                                 ),
                               ],
                             ),
@@ -172,6 +175,12 @@ class HomePage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         log('anual');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ReportCard(),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [

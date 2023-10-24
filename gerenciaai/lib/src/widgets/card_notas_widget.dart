@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:gerenciaai/src/widgets/page_nota.dart';
 
 class CardNotaWidget extends StatelessWidget {
   const CardNotaWidget({
