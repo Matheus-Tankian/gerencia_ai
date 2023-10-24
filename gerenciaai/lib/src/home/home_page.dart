@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
-import 'package:gerenciaai/src/widgets/textfield_widget.dart';
+import 'package:gerenciaai/src/widgets/report_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -51,8 +51,6 @@ class HomePage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 20),
-                const TextFieldWidget(),
                 const SizedBox(height: 16),
                 const Text(
                   'Serviços recentes',
@@ -126,6 +124,12 @@ class HomePage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         log('mensal');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ReportCard(),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
@@ -142,7 +146,9 @@ class HomePage extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.5),
                                   blurRadius: 4,
                                   offset: const Offset(
-                                      4, 8), // changes position of shadow
+                                    4,
+                                    8,
+                                  ),
                                 ),
                               ],
                             ),
@@ -172,6 +178,12 @@ class HomePage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         log('anual');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ReportCard(),
+                          ),
+                        );
                       },
                       child: Row(
                         children: [
