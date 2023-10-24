@@ -63,45 +63,42 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SingleChildScrollView(
+          SizedBox(
+            height: 180,
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  5,
-                  (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          log('item: $index');
-                        },
-                        child: CardNotaWidget(
-                          height: 180,
-                          tap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageNota(
-                                  id: index,
-                                  nome: 'nome',
-                                  data: '1$index oct 2022',
-                                  descricao: 'descriçao',
-                                  valor: 200,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              padding: const EdgeInsets.only(left: 16),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20,
+                    bottom: 10,
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      log('item: $index');
+                    },
+                    child: CardNotaWidget(
+                      height: 180,
+                      tap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PageNota(
+                              id: index,
+                              nome: 'nome',
+                              data: '1$index oct 2022',
+                              descricao: 'descriçao',
+                              valor: 200,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           Padding(
