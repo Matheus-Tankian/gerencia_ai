@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
-import 'package:gerenciaai/src/login_page/login_viewmodel.dart';
+import 'package:gerenciaai/src/login_page/login_controller.dart';
+import 'package:gerenciaai/src/widgets/inputText_widget.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
