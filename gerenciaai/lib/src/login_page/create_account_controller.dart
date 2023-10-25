@@ -117,10 +117,11 @@ class CreateAccountController extends ChangeNotifier {
       changeConfirmSenhaHasError(false);
     }
 
-    if (_isValidNewNome &&
-        _isValidNewEmial &&
-        _isValidNewSenha &&
-        _isValidConfirmSenha) {
+    if (newNomeHasError == false &&
+        newEmailHasError == false &&
+        newSenhaHasError == false &&
+        confirmSenhaHasError == false &&
+        (newSenha.text == confirmSenha.text)) {
       chageHasChecked(true);
       log('check passou');
     } else {
