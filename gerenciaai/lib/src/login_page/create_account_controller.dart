@@ -54,7 +54,7 @@ class CreateAccountController extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeNewSechaHasError(bool value) {
+  changeNewEmailHasError(bool value) {
     _newEmailHasError = value;
     notifyListeners();
   }
@@ -93,12 +93,12 @@ class CreateAccountController extends ChangeNotifier {
       changeNewNomeHasError(false);
     }
 
-    if (newEmial.text.isEmpty || newEmial.text.contains('@')) {
+    if (newEmial.text.isEmpty || !newEmial.text.contains('@')) {
       log('newEmial NAO  e valido');
-      changeNewSechaHasError(true);
+      changeNewEmailHasError(true);
     } else {
       log('email e valido ');
-      changeNewSechaHasError(false);
+      changeNewEmailHasError(false);
     }
 
     if (newSenha.text.isEmpty || newSenha.text.length <= 3) {
