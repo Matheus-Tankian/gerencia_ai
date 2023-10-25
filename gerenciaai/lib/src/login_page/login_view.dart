@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 import 'package:gerenciaai/src/login_page/login_controller.dart';
-import 'package:gerenciaai/src/widgets/inputText_widget.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -273,7 +272,9 @@ class LoginView extends StatelessWidget {
                                     color: Colors.grey.withOpacity(0.5),
                                     blurRadius: 4,
                                     offset: const Offset(
-                                        4, 8), // changes position of shadow
+                                      4,
+                                      8,
+                                    ),
                                   ),
                                 ],
                               ),
