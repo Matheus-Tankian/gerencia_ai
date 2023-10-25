@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 RichText(
                   text: const TextSpan(
@@ -197,7 +198,9 @@ class HomePage extends StatelessWidget {
                                   color: Colors.grey.withOpacity(0.5),
                                   blurRadius: 4,
                                   offset: const Offset(
-                                      4, 8), // changes position of shadow
+                                    4,
+                                    8,
+                                  ),
                                 ),
                               ],
                             ),
@@ -226,7 +229,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 26),
                 const Text(
                   'Graficos anual',
                   style: TextStyle(
@@ -235,7 +238,7 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 52),
                 const SizedBox(
                   height: 200,
                   child: BarChartWidget(),
