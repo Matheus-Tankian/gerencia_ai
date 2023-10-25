@@ -1,8 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/add_page.dart';
-import 'package:gerenciaai/src/home/home_page.dart';
-import 'package:gerenciaai/src/home/notas_page.dart';
+import 'package:gerenciaai/src/home/home_page/home_page.dart';
+import 'package:gerenciaai/src/home/notas_page/notas_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
           height: 48,
           animationDuration: const Duration(milliseconds: 300),
           color: const Color(0xfff9a826),
-          backgroundColor: const Color(0xffcb8a24), // const Color(0xfffff0dc),
+          backgroundColor: const Color(0xffcb8a24),
           onTap: (index) {
             setState(() {
               _currentIndex = index;

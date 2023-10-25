@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget {
     this.contentPadding,
     this.fillColor,
     this.prefixIcon,
+    required this.textController,
   });
 
   final String? hintText;
@@ -15,10 +16,12 @@ class TextFieldWidget extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final Color? fillColor;
   final Icon? prefixIcon;
+  final TextEditingController textController;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: textController,
       decoration: InputDecoration(
         hintText: hintText ?? 'Pesquisar',
         contentPadding: const EdgeInsets.all(12.0),

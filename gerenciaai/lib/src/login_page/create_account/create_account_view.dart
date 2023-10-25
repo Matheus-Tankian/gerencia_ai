@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:gerenciaai/src/login_page/create_account_controller.dart';
+import 'package:gerenciaai/src/login_page/create_account/create_account_controller.dart';
 import 'package:provider/provider.dart';
 
 class CreateAccountView extends StatelessWidget {

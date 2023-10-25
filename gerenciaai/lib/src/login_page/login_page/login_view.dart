@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
-import 'package:gerenciaai/src/login_page/login_controller.dart';
+import 'package:gerenciaai/src/login_page/login_page/login_controller.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -255,11 +255,14 @@ class LoginView extends StatelessWidget {
 
                               await provider.checkLogin();
 
-                              if (provider.canLogin == true) {
-                                // ignore: use_build_context_synchronously
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, Routes.homePage, (route) => false);
-                              }
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, Routes.homePage, (route) => false);
+
+                              // if (provider.canLogin == true) {
+                              //   // ignore: use_build_context_synchronously
+                              //   Navigator.pushNamedAndRemoveUntil(
+                              //       context, Routes.homePage, (route) => false);
+                              // }
                             },
                             child: Container(
                               decoration: BoxDecoration(
