@@ -14,18 +14,6 @@ class CreateAccountView extends StatelessWidget {
               color: const Color(0xffF9A826),
               width: double.infinity,
               height: double.infinity,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 30, top: 70),
-                child: Text(
-                  'Register',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
             ),
             Positioned(
               top: 34,
@@ -62,6 +50,32 @@ class CreateAccountView extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(40)),
                 ),
               ),
+            ),
+            const Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Divider(
+                  color: Colors.transparent,
+                  height: 1,
+                ),
+                SizedBox(height: 8),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 30,
+                    top: 70,
+                  ),
+                  child: Text(
+                    'Cadastre-se ',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
             Positioned(
               child: Container(
