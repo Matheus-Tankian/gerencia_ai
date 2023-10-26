@@ -11,6 +11,9 @@ class CardNotaWidget extends StatelessWidget {
     this.valorText,
     this.dataText,
     required this.tap,
+    required this.title,
+    required this.data,
+    required this.value,
   });
 
   final double? width;
@@ -22,25 +25,14 @@ class CardNotaWidget extends StatelessWidget {
   final Text? dataText;
   final Function() tap;
 
+  final String title;
+  final String data;
+  final double value;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: tap,
-      // () {
-      // log('Card');
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const PageNota(
-      //       id: 1,
-      //       nome: 'nome',
-      //       data: '10 oct 2022',
-      //       descricao: 'descriçao',
-      //       valor: 200,
-      //     ),
-      //   ),
-      // );
-      // },
       child: Container(
         width: width ?? 170,
         height: height ?? 180,
@@ -71,10 +63,10 @@ class CardNotaWidget extends StatelessWidget {
               const SizedBox(height: 10),
               const Text('Nome:'),
               titleCard ??
-                  const Text(
-                    'Projeto 1 ',
+                  Text(
+                    title,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xff4f3716),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -83,9 +75,9 @@ class CardNotaWidget extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Data:'),
               dataText ??
-                  const Text(
-                    '11 Set 2001',
-                    style: TextStyle(
+                  Text(
+                    data,
+                    style: const TextStyle(
                       color: Color(0xff4f3716),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -94,9 +86,9 @@ class CardNotaWidget extends StatelessWidget {
               const SizedBox(height: 4),
               const Text('Valor:'),
               valorText ??
-                  const Text(
-                    'R\$ 100',
-                    style: TextStyle(
+                  Text(
+                    'R\$ $value',
+                    style: const TextStyle(
                       color: Color(0xff4f3716),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
