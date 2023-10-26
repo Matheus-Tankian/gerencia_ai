@@ -1,6 +1,18 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+double calculateMaxValue(List<BarChartGroupData> barGroups) {
+  double max = 0.0;
+  for (final group in barGroups) {
+    for (final rod in group.barRods) {
+      if (rod.toY > max) {
+        max = rod.toY;
+      }
+    }
+  }
+  return max;
+}
+
 class BarChartWidget extends StatelessWidget {
   const BarChartWidget({
     super.key,
@@ -11,6 +23,8 @@ class BarChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double max = calculateMaxValue(barGroupList);
+
     return BarChart(
       BarChartData(
         barTouchData: barTouchData,
@@ -19,7 +33,7 @@ class BarChartWidget extends StatelessWidget {
         barGroups: barGroupList,
         gridData: const FlGridData(show: false),
         alignment: BarChartAlignment.spaceAround,
-        maxY: 6000,
+        maxY: max,
       ),
     );
   }

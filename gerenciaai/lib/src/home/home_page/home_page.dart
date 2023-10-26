@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
