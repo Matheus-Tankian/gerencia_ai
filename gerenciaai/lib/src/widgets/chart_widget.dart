@@ -2,7 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BarChartWidget extends StatelessWidget {
-  const BarChartWidget({super.key});
+  const BarChartWidget({
+    super.key,
+    required this.barGroupList,
+  });
+
+  final List<BarChartGroupData> barGroupList;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +16,7 @@ class BarChartWidget extends StatelessWidget {
         barTouchData: barTouchData,
         titlesData: titlesData,
         borderData: borderData,
-        barGroups: barGroups,
+        barGroups: barGroupList,
         gridData: const FlGridData(show: false),
         alignment: BarChartAlignment.spaceAround,
         maxY: 6000,
@@ -121,137 +126,4 @@ class BarChartWidget extends StatelessWidget {
   FlBorderData get borderData => FlBorderData(
         show: false,
       );
-
-  LinearGradient get _barsGradient => const LinearGradient(
-        colors: [
-          Color(0xffdd2300),
-          Color(0xffff4700),
-          Color(0xffff6625),
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      );
-
-  List<BarChartGroupData> get barGroups => [
-        BarChartGroupData(
-          x: 0,
-          barRods: [
-            BarChartRodData(
-              toY: 2500,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: [
-            BarChartRodData(
-              toY: 2200,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: [
-            BarChartRodData(
-              toY: 1600,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-              toY: 3000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 4,
-          barRods: [
-            BarChartRodData(
-              toY: 4000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 5,
-          barRods: [
-            BarChartRodData(
-              toY: 2000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 6,
-          barRods: [
-            BarChartRodData(
-              toY: 6000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 7,
-          barRods: [
-            BarChartRodData(
-              toY: 5000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 8,
-          barRods: [
-            BarChartRodData(
-              toY: 3000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 9,
-          barRods: [
-            BarChartRodData(
-              toY: 2000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 10,
-          barRods: [
-            BarChartRodData(
-              toY: 6000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 11,
-          barRods: [
-            BarChartRodData(
-              toY: 4000,
-              gradient: _barsGradient,
-            )
-          ],
-          showingTooltipIndicators: [0],
-        ),
-      ];
 }
