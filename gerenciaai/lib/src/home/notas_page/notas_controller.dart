@@ -44,18 +44,25 @@ class NotasController extends ChangeNotifier {
 
   TextEditingController search = TextEditingController();
 
-  List<NotaModel> searchNotas() {
-    final searchTerm = search.text.toLowerCase();
-    if (searchTerm.isEmpty) {
-      return _notas;
+  List<NotaModel> filteredNotas = [];
+
+  void searchNotas(String value) {
+    final searchTerm = value.toLowerCase();
+    if (searchTerm.isEmpty || searchTerm == '') {
+      filteredNotas = _notas;
     } else {
-      final filteredNotas = _notas.where((nota) {
+      filteredNotas = _notas.where((nota) {
         return nota.notaName.toLowerCase().contains(searchTerm) ||
             nota.notaData.toLowerCase().contains(searchTerm) ||
             nota.notaDescription.toLowerCase().contains(searchTerm);
       }).toList();
-      notifyListeners();
-      return filteredNotas;
+
+      filteredNotas;
     }
+
+    if (filteredNotas.isEmpty) {
+      filteredNotas = [];
+    }
+    notifyListeners();
   }
 }

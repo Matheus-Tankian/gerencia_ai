@@ -9,6 +9,7 @@ class TextFieldWidget extends StatelessWidget {
     this.fillColor,
     this.prefixIcon,
     required this.textController,
+    this.onChanged,
   });
 
   final String? hintText;
@@ -17,10 +18,12 @@ class TextFieldWidget extends StatelessWidget {
   final Color? fillColor;
   final Icon? prefixIcon;
   final TextEditingController textController;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       controller: textController,
       decoration: InputDecoration(
         hintText: hintText ?? 'Pesquisar',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/notas_page/notas_controller.dart';
-import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
-import 'package:gerenciaai/src/widgets/page_nota.dart';
+import 'package:gerenciaai/src/widgets/list_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/textfield_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -37,45 +36,14 @@ class NotasPage extends StatelessWidget {
                 const SizedBox(height: 12),
                 TextFieldWidget(
                   textController: provider.search,
+                  onChanged: (value) {
+                    provider.searchNotas(value);
+                  },
                 ),
                 const SizedBox(height: 6),
                 Expanded(
-                  child: GridView.builder(
-                    itemCount: provider.searchNotas().length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      final filteredNotas = provider.searchNotas();
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16,
-                          left: 8,
-                          right: 8,
-                        ),
-                        child: CardNotaWidget(
-                          title: filteredNotas[index].notaName,
-                          data: filteredNotas[index].notaData,
-                          value: filteredNotas[index].notaPrice,
-                          tap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageNota(
-                                  id: index,
-                                  nome: filteredNotas[index].notaName,
-                                  data: filteredNotas[index].notaData,
-                                  descricao:
-                                      filteredNotas[index].notaDescription,
-                                  valor: filteredNotas[index].notaPrice,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  child: ListNotassWidget(
+                    controller: provider,
                   ),
                 ),
               ],
