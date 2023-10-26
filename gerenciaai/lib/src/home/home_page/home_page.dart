@@ -241,7 +241,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 26),
                     const Text(
-                      'Graficos anual',
+                      'Graficos anual de 2023',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -249,9 +249,24 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 52),
-                    const SizedBox(
+                    SizedBox(
                       height: 200,
-                      child: BarChartWidget(),
+                      child: BarChartWidget(
+                        barGroupList: provider.createBarChartGroups([
+                          100,
+                          200,
+                          300,
+                          400,
+                          500,
+                          600,
+                          700,
+                          800,
+                          900,
+                          1000,
+                          1100,
+                          1200
+                        ]),
+                      ),
                     ),
                   ],
                 ),

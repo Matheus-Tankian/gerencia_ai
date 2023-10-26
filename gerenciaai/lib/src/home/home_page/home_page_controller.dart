@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class HomePageController extends ChangeNotifier {
@@ -25,7 +26,38 @@ class HomePageController extends ChangeNotifier {
     ),
   ];
   List<NotaModel> get notasRecentes => _notasRecentes;
+
+  List<BarChartGroupData> createBarChartGroups(List<double> dataList) {
+    final List<BarChartGroupData> barGroups = [];
+
+    for (int i = 0; i < dataList.length; i++) {
+      barGroups.add(
+        BarChartGroupData(
+          x: i,
+          barRods: [
+            BarChartRodData(
+              toY: dataList[i],
+              gradient: _barsGradient,
+            )
+          ],
+          showingTooltipIndicators: [0],
+        ),
+      );
+    }
+
+    return barGroups;
+  }
 }
+
+LinearGradient get _barsGradient => const LinearGradient(
+      colors: [
+        Color(0xffdd2300),
+        Color(0xffff4700),
+        Color(0xffff6625),
+      ],
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+    );
 
 //esse modelo e temporario
 
