@@ -37,28 +37,88 @@ class _AddPageState extends State<AddPage> {
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Nome da nota fiscal',
-                  prefixIcon: Icon(Icons.assignment_outlined),
+                  hintStyle: TextStyle(
+                    color: Color(0xffADADAD),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.assignment_outlined,
+                    color: Color(0xffF9A826),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          // provider.emailHasError == true
+                          //  ? Colors.red
+                          //:
+                          Color(0xffF9A826),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Data do serviço',
-                  prefixIcon: Icon(Icons.calendar_today_outlined),
+                  hintStyle: TextStyle(
+                    color: Color(0xffADADAD),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.calendar_today_outlined,
+                    color: Color(0xffF9A826),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          // provider.emailHasError == true
+                          //  ? Colors.red
+                          //:
+                          Color(0xffF9A826),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Valor',
-                  prefixIcon: Icon(Icons.wallet_sharp),
+                  hintStyle: TextStyle(
+                    color: Color(0xffADADAD),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.wallet_sharp,
+                    color: Color(0xffF9A826),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          // provider.emailHasError == true
+                          //  ? Colors.red
+                          //:
+                          Color(0xffF9A826),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               const TextField(
                 decoration: InputDecoration(
                   hintText: 'Descrição',
-                  prefixIcon: Icon(Icons.description_outlined),
+                  hintStyle: TextStyle(
+                    color: Color(0xffADADAD),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.description_outlined,
+                    color: Color(0xffF9A826),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color:
+                          // provider.emailHasError == true
+                          //  ? Colors.red
+                          //:
+                          Color(0xffF9A826),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -66,7 +126,7 @@ class _AddPageState extends State<AddPage> {
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Color(0xff666666),
+                      color: Color(0xffADADAD),
                       width: 1,
                     ),
                   ),
@@ -102,13 +162,17 @@ class _AddPageState extends State<AddPage> {
                                 const BorderSide(color: Colors.black, width: 1),
                           ),
                         ),
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 140,
                           height: double.infinity,
                           child: Center(
                             child: Text(
                               'Escolher arquivo',
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
@@ -118,7 +182,7 @@ class _AddPageState extends State<AddPage> {
                         filePath != '' ? filePath : 'Nenhum arquivo escolhido',
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Color(0xff666666),
+                          color: Color(0xffADADAD),
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
