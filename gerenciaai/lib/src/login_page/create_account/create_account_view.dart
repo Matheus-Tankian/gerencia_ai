@@ -309,7 +309,7 @@ class CreateAccountView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              obscureText: true,
+                              obscureText: provider.isObscureTextConfirmSenha,
                             ),
                             Visibility(
                               visible: provider.confirmSenhaHasError,
@@ -343,9 +343,23 @@ class CreateAccountView extends StatelessWidget {
                                 await provider.checkNewAccont();
                                 if (provider.hasChecked == true) {
                                   // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text(
+                                          'Cadastro realizado com sucesso'),
+                                    ),
+                                  );
                                   Navigator.pop(context);
-                                } else {
+                                } else if (provider.hasChecked == false &&
+                                    provider.errorMenssager != '') {
                                   log('deu errro ');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text(provider.errorMenssager),
+                                    ),
+                                  );
                                 }
                               },
                               child: Container(

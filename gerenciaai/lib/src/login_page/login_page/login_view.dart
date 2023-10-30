@@ -255,14 +255,19 @@ class LoginView extends StatelessWidget {
 
                               await provider.checkLogin();
 
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, Routes.homePage, (route) => false);
-
-                              // if (provider.canLogin == true) {
-                              //   // ignore: use_build_context_synchronously
-                              //   Navigator.pushNamedAndRemoveUntil(
-                              //       context, Routes.homePage, (route) => false);
-                              // }
+                              if (provider.canLogin == true) {
+                                // ignore: use_build_context_synchronously
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, Routes.homePage, (route) => false);
+                              } else if (provider.canLogin == false &&
+                                  provider.loginMenssager != '') {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(provider.loginMenssager),
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(

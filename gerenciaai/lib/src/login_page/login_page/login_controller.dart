@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/authentication_service.dart';
 
 class LoginController extends ChangeNotifier {
+  final AuthenticationService _authenticationLogin = AuthenticationService();
+
   TextEditingController email = TextEditingController();
   TextEditingController senha = TextEditingController();
 
@@ -16,13 +19,19 @@ class LoginController extends ChangeNotifier {
   bool _senhaHasError = false;
   bool get senhaHasError => _senhaHasError;
 
+  String _loginMenssager = '';
+  String get loginMenssager => _loginMenssager;
+
   changeIsObscureText() {
     _isObscureText = !_isObscureText;
     notifyListeners();
   }
 
-  changeCanLogin(bool value) {
+  changeCanLogin(bool value, String text) {
     _canLogin = value;
+    if (value == false) {
+      _loginMenssager = text;
+    }
     notifyListeners();
   }
 
@@ -52,9 +61,15 @@ class LoginController extends ChangeNotifier {
     }
 
     if (emailHasError == false && senhaHasError == false) {
-      changeCanLogin(true);
-    } else {
-      changeCanLogin(false);
+      _authenticationLogin
+          .userLogin(email: email.text, senha: senha.text)
+          .then((String? erro) {
+        if (erro != null) {
+          changeCanLogin(false, erro);
+        } else {
+          changeCanLogin(true, '');
+        }
+      });
     }
   }
 }

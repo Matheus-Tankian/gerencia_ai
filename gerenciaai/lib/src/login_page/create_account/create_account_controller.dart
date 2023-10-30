@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/authentication_service.dart';
 
 class CreateAccountController extends ChangeNotifier {
   TextEditingController newNome = TextEditingController();
@@ -41,13 +42,8 @@ class CreateAccountController extends ChangeNotifier {
   bool _isObscureTextConfirmSenha = true;
   bool get isObscureTextConfirmSenha => _isObscureTextConfirmSenha;
 
-  changeNewNome() {}
-
-  changeNewEmial() {}
-
-  changeNewSenha() {}
-
-  changeConfirmSenha() {}
+  String _errorMenssager = '';
+  String get errorMenssager => _errorMenssager;
 
   changeNewNomeHasError(bool value) {
     _newNomeHasError = value;
@@ -79,41 +75,36 @@ class CreateAccountController extends ChangeNotifier {
     notifyListeners();
   }
 
-  chageHasChecked(bool value) {
+  chageHasChecked(bool value, String erro) {
     _hasChecked = value;
+    if (value == false) {
+      _errorMenssager = erro;
+    }
     notifyListeners();
   }
 
   Future<void> checkNewAccont() async {
     if (newNome.text.isEmpty || newNome.text.length <= 1) {
-      log('Nome  nao e valido');
       changeNewNomeHasError(true);
     } else {
-      log('valido nome');
       changeNewNomeHasError(false);
     }
 
     if (newEmial.text.isEmpty || !newEmial.text.contains('@')) {
-      log('newEmial NAO  e valido');
       changeNewEmailHasError(true);
     } else {
-      log('email e valido ');
       changeNewEmailHasError(false);
     }
 
     if (newSenha.text.isEmpty || newSenha.text.length <= 3) {
-      log('newSenha NAO eh valido');
       changeNewSenhaHasError(true);
     } else {
-      log('newSenha eh valido ');
       changeNewSenhaHasError(false);
     }
 
     if (confirmSenha.text.isEmpty || confirmSenha.text.length <= 3) {
-      log('confirmSenha NAO eh valido');
       changeConfirmSenhaHasError(true);
     } else {
-      log('confirmSenha eh valido');
       changeConfirmSenhaHasError(false);
     }
 
@@ -122,11 +113,26 @@ class CreateAccountController extends ChangeNotifier {
         newSenhaHasError == false &&
         confirmSenhaHasError == false &&
         (newSenha.text == confirmSenha.text)) {
-      chageHasChecked(true);
-      log('check passou');
-    } else {
-      chageHasChecked(false);
-      log('check NAO passou');
+      AuthenticationService authenticationService = AuthenticationService();
+
+      authenticationService
+          .cadastrarUsuario(
+        nome: newNome.text,
+        email: newEmial.text,
+        senha: newSenha.text,
+      )
+          .then(
+        (String? erro) {
+          if (erro != null) {
+            chageHasChecked(false, erro);
+
+            log('check NAO passou');
+          } else {
+            chageHasChecked(true, '');
+            log('snackbar foi cad');
+          }
+        },
+      );
     }
   }
 }
