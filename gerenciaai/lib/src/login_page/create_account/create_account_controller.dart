@@ -83,7 +83,7 @@ class CreateAccountController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkNewAccont() async {
+  Future<void> checkNewAccont(BuildContext context) async {
     if (newNome.text.isEmpty || newNome.text.length <= 1) {
       changeNewNomeHasError(true);
     } else {
@@ -125,14 +125,28 @@ class CreateAccountController extends ChangeNotifier {
         (String? erro) {
           if (erro != null) {
             chageHasChecked(false, erro);
-
-            log('check NAO passou');
+            log('erro: $erro');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(erro),
+              ),
+            );
           } else {
             chageHasChecked(true, '');
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('Cadastro realizado com sucesso'),
+              ),
+            );
+            Navigator.pop(context);
             log('snackbar foi cad');
           }
         },
       );
+    } else {
+      chageHasChecked(false, '');
     }
   }
 }

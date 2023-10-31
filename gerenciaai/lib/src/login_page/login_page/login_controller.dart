@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class LoginController extends ChangeNotifier {
   final AuthenticationService _authenticationLogin = AuthenticationService();
@@ -45,7 +48,7 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkLogin() async {
+  Future<void> checkLogin(BuildContext context) async {
     if (email.text.isEmpty ||
         email.text.length <= 3 ||
         !email.text.contains('@')) {
@@ -54,7 +57,7 @@ class LoginController extends ChangeNotifier {
       changeEmailHasError(false);
     }
 
-    if (senha.text.isEmpty || senha.text.length <= 3) {
+    if (senha.text.isEmpty) {
       changeSenhaHasError(true);
     } else {
       changeSenhaHasError(false);
@@ -66,8 +69,18 @@ class LoginController extends ChangeNotifier {
           .then((String? erro) {
         if (erro != null) {
           changeCanLogin(false, erro);
+          log('erro: $erro');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(erro),
+            ),
+          );
         } else {
           changeCanLogin(true, '');
+          log('Login');
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.homePage, (route) => false);
         }
       });
     }

@@ -253,21 +253,7 @@ class LoginView extends StatelessWidget {
                             onTap: () async {
                               log('loggin');
 
-                              await provider.checkLogin();
-
-                              if (provider.canLogin == true) {
-                                // ignore: use_build_context_synchronously
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, Routes.homePage, (route) => false);
-                              } else if (provider.canLogin == false &&
-                                  provider.loginMenssager != '') {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(provider.loginMenssager),
-                                  ),
-                                );
-                              }
+                              await provider.checkLogin(context);
                             },
                             child: Container(
                               decoration: BoxDecoration(

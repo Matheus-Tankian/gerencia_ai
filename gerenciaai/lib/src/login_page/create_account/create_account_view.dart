@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/login_page/create_account/create_account_controller.dart';
 import 'package:provider/provider.dart';
@@ -340,27 +338,7 @@ class CreateAccountView extends StatelessWidget {
                             const SizedBox(height: 38),
                             InkWell(
                               onTap: () async {
-                                await provider.checkNewAccont();
-                                if (provider.hasChecked == true) {
-                                  // ignore: use_build_context_synchronously
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text(
-                                          'Cadastro realizado com sucesso'),
-                                    ),
-                                  );
-                                  Navigator.pop(context);
-                                } else if (provider.hasChecked == false &&
-                                    provider.errorMenssager != '') {
-                                  log('deu errro ');
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: Text(provider.errorMenssager),
-                                    ),
-                                  );
-                                }
+                                await provider.checkNewAccont(context);
                               },
                               child: Container(
                                 decoration: const BoxDecoration(
