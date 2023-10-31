@@ -25,8 +25,17 @@ class LoginController extends ChangeNotifier {
   String _loginMenssager = '';
   String get loginMenssager => _loginMenssager;
 
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   changeIsObscureText() {
     _isObscureText = !_isObscureText;
+    notifyListeners();
+  }
+
+  Future<void> changeIsLoading() async {
+    Future.delayed(const Duration(seconds: 2));
+    _isLoading = true;
     notifyListeners();
   }
 
@@ -67,6 +76,8 @@ class LoginController extends ChangeNotifier {
       _authenticationLogin
           .userLogin(email: email.text, senha: senha.text)
           .then((String? erro) {
+        changeIsLoading();
+        notifyListeners();
         if (erro != null) {
           changeCanLogin(false, erro);
           log('erro: $erro');

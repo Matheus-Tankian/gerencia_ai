@@ -5,9 +5,20 @@ import 'package:gerenciaai/src/app/routes/routes.dart';
 import 'package:gerenciaai/src/login_page/login_page/login_controller.dart';
 import 'package:provider/provider.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+bool loading = true;
+Future<void> loadingButton() async {
+  Future.delayed(const Duration(seconds: 2));
+  loading = false;
+}
+
+class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginController>(
@@ -273,13 +284,18 @@ class LoginView extends StatelessWidget {
                                 ],
                               ),
                               height: 50,
-                              child: const Center(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                              child: Visibility(
+                                visible: loading,
+                                replacement: const Center(
+                                    child: CircularProgressIndicator()),
+                                child: const Center(
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -289,6 +305,7 @@ class LoginView extends StatelessWidget {
                           Center(
                             child: InkWell(
                               onTap: () {
+                                provider.changeIsLoading();
                                 Navigator.of(context)
                                     .pushNamed(Routes.createAccountPage);
                               },
