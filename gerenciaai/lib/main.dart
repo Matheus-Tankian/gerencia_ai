@@ -6,8 +6,14 @@ import 'package:gerenciaai/src/login_page/create_account/create_account_view.dar
 import 'package:gerenciaai/src/login_page/login_page/login_view.dart';
 import 'package:gerenciaai/src/splash_page/splash_view.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MyApp()));

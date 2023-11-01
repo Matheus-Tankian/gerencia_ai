@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/login_page/create_account/create_account_controller.dart';
 import 'package:provider/provider.dart';
@@ -309,7 +307,7 @@ class CreateAccountView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              obscureText: true,
+                              obscureText: provider.isObscureTextConfirmSenha,
                             ),
                             Visibility(
                               visible: provider.confirmSenhaHasError,
@@ -340,13 +338,7 @@ class CreateAccountView extends StatelessWidget {
                             const SizedBox(height: 38),
                             InkWell(
                               onTap: () async {
-                                await provider.checkNewAccont();
-                                if (provider.hasChecked == true) {
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.pop(context);
-                                } else {
-                                  log('deu errro ');
-                                }
+                                await provider.checkNewAccont(context);
                               },
                               child: Container(
                                 decoration: const BoxDecoration(

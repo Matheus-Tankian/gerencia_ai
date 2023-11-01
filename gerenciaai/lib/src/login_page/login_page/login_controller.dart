@@ -1,6 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class LoginController extends ChangeNotifier {
+  final AuthenticationService _authenticationLogin = AuthenticationService();
+
   TextEditingController email = TextEditingController();
   TextEditingController senha = TextEditingController();
 
@@ -16,13 +22,28 @@ class LoginController extends ChangeNotifier {
   bool _senhaHasError = false;
   bool get senhaHasError => _senhaHasError;
 
+  String _loginMenssager = '';
+  String get loginMenssager => _loginMenssager;
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   changeIsObscureText() {
     _isObscureText = !_isObscureText;
     notifyListeners();
   }
 
-  changeCanLogin(bool value) {
+  Future<void> changeIsLoading() async {
+    Future.delayed(const Duration(seconds: 2));
+    _isLoading = true;
+    notifyListeners();
+  }
+
+  changeCanLogin(bool value, String text) {
     _canLogin = value;
+    if (value == false) {
+      _loginMenssager = text;
+    }
     notifyListeners();
   }
 
@@ -36,7 +57,7 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> checkLogin() async {
+  Future<void> checkLogin(BuildContext context) async {
     if (email.text.isEmpty ||
         email.text.length <= 3 ||
         !email.text.contains('@')) {
@@ -45,16 +66,34 @@ class LoginController extends ChangeNotifier {
       changeEmailHasError(false);
     }
 
-    if (senha.text.isEmpty || senha.text.length <= 3) {
+    if (senha.text.isEmpty) {
       changeSenhaHasError(true);
     } else {
       changeSenhaHasError(false);
     }
 
     if (emailHasError == false && senhaHasError == false) {
-      changeCanLogin(true);
-    } else {
-      changeCanLogin(false);
+      _authenticationLogin
+          .userLogin(email: email.text, senha: senha.text)
+          .then((String? erro) {
+        changeIsLoading();
+        notifyListeners();
+        if (erro != null) {
+          changeCanLogin(false, erro);
+          log('erro: $erro');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(erro),
+            ),
+          );
+        } else {
+          changeCanLogin(true, '');
+          log('Login');
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.homePage, (route) => false);
+        }
+      });
     }
   }
 }

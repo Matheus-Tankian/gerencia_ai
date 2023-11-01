@@ -5,9 +5,14 @@ import 'package:gerenciaai/src/app/routes/routes.dart';
 import 'package:gerenciaai/src/login_page/login_page/login_controller.dart';
 import 'package:provider/provider.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginController>(
@@ -253,16 +258,7 @@ class LoginView extends StatelessWidget {
                             onTap: () async {
                               log('loggin');
 
-                              await provider.checkLogin();
-
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, Routes.homePage, (route) => false);
-
-                              // if (provider.canLogin == true) {
-                              //   // ignore: use_build_context_synchronously
-                              //   Navigator.pushNamedAndRemoveUntil(
-                              //       context, Routes.homePage, (route) => false);
-                              // }
+                              await provider.checkLogin(context);
                             },
                             child: Container(
                               decoration: BoxDecoration(
