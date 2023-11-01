@@ -12,12 +12,6 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-bool loading = true;
-Future<void> loadingButton() async {
-  Future.delayed(const Duration(seconds: 2));
-  loading = false;
-}
-
 class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
@@ -284,18 +278,13 @@ class _LoginViewState extends State<LoginView> {
                                 ],
                               ),
                               height: 50,
-                              child: Visibility(
-                                visible: loading,
-                                replacement: const Center(
-                                    child: CircularProgressIndicator()),
-                                child: const Center(
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
+                              child: const Center(
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
@@ -305,7 +294,6 @@ class _LoginViewState extends State<LoginView> {
                           Center(
                             child: InkWell(
                               onTap: () {
-                                provider.changeIsLoading();
                                 Navigator.of(context)
                                     .pushNamed(Routes.createAccountPage);
                               },
