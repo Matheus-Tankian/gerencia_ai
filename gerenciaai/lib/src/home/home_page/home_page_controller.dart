@@ -78,6 +78,7 @@ class HomePageController extends ChangeNotifier {
     name = await authenticationService.getUserName(email: email);
     log(name);
     changeUserName(name);
+    authenticationService.setupAuthStateListener();
   }
 }
 

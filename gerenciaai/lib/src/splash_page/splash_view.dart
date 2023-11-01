@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class SplashView extends StatefulWidget {
@@ -9,11 +10,16 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final BoxStorage _boxStorage = BoxStorage();
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacementNamed(Routes.loginPage);
+      if (_boxStorage.userToken.toString() != '') {
+        Navigator.of(context).pushReplacementNamed(Routes.homePage);
+      } else {
+        Navigator.of(context).pushReplacementNamed(Routes.loginPage);
+      }
     });
   }
 
