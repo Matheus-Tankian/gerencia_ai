@@ -16,8 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //final HomePageController controller = HomePageController();
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
