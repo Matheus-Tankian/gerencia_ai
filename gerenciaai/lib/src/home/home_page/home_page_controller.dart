@@ -1,8 +1,16 @@
+import 'dart:developer';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 
 class HomePageController extends ChangeNotifier {
-  final String _userName = 'Vitor';
+  final BoxStorage _boxStorage = BoxStorage();
+
+  int aux = 0;
+
+  String _userName = '';
   String get userName => _userName;
 
   final List<NotaModel> _notasRecentes = [
@@ -25,6 +33,13 @@ class HomePageController extends ChangeNotifier {
       notaPrice: 2000.00,
     ),
   ];
+
+  changeUserName(String value) {
+    _userName = value;
+    log('value: $value');
+    notifyListeners();
+  }
+
   List<NotaModel> get notasRecentes => _notasRecentes;
 
   List<BarChartGroupData> createBarChartGroups(List<double> dataList) {
@@ -46,6 +61,23 @@ class HomePageController extends ChangeNotifier {
     }
 
     return barGroups;
+  }
+
+  String getUserName() {
+    if (aux == 0) {
+      getNome();
+    }
+    aux++;
+    return userName;
+  }
+
+  Future<void> getNome() async {
+    String name = '';
+    String email = await _boxStorage.userEmail.read('email');
+    AuthenticationService authenticationService = AuthenticationService();
+    name = await authenticationService.getUserName(email: email);
+    log(name);
+    changeUserName(name);
   }
 }
 

@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<String?> cadastrarUsuario({
     required String nome,
@@ -40,6 +45,34 @@ class AuthenticationService {
         return 'O usuario não está cadastrado';
       }
       return 'Erro desconhecido';
+    }
+  }
+
+  Future<void> userName({
+    required String name,
+    required String email,
+  }) async {
+    await _firebaseFirestore.collection('users').add({
+      'nome': name,
+      'email': email,
+    });
+  }
+
+  Future<String> getUserName({required String email}) async {
+    final QuerySnapshot querySnapshot = await _firebaseFirestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+      final userName = userData['nome'] as String;
+
+      log('Nome do usuário encontrado: $userName');
+      return userName;
+    } else {
+      log('Usuário com o e-mail $email não encontrado.');
+      return '';
     }
   }
 }

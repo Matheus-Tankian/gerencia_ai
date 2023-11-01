@@ -5,7 +5,7 @@ import 'package:gerenciaai/services/authentication_service.dart';
 
 class CreateAccountController extends ChangeNotifier {
   TextEditingController newNome = TextEditingController();
-  TextEditingController newEmial = TextEditingController();
+  TextEditingController newEmail = TextEditingController();
   TextEditingController newSenha = TextEditingController();
   TextEditingController confirmSenha = TextEditingController();
 
@@ -90,7 +90,7 @@ class CreateAccountController extends ChangeNotifier {
       changeNewNomeHasError(false);
     }
 
-    if (newEmial.text.isEmpty || !newEmial.text.contains('@')) {
+    if (newEmail.text.isEmpty || !newEmail.text.contains('@')) {
       changeNewEmailHasError(true);
     } else {
       changeNewEmailHasError(false);
@@ -115,10 +115,15 @@ class CreateAccountController extends ChangeNotifier {
         (newSenha.text == confirmSenha.text)) {
       AuthenticationService authenticationService = AuthenticationService();
 
-      authenticationService
+      await authenticationService.userName(
+        name: newNome.text,
+        email: newEmail.text,
+      );
+
+      await authenticationService
           .cadastrarUsuario(
         nome: newNome.text,
-        email: newEmial.text,
+        email: newEmail.text,
         senha: newSenha.text,
       )
           .then(

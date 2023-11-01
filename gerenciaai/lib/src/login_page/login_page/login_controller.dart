@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class LoginController extends ChangeNotifier {
   final AuthenticationService _authenticationLogin = AuthenticationService();
+  final BoxStorage _boxStorage = BoxStorage();
 
   TextEditingController email = TextEditingController();
   TextEditingController senha = TextEditingController();
@@ -90,6 +92,7 @@ class LoginController extends ChangeNotifier {
         } else {
           changeCanLogin(true, '');
           log('Login');
+          _boxStorage.userEmail.write('email', email.text);
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.homePage, (route) => false);
         }
