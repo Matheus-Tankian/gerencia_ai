@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 
@@ -88,21 +90,41 @@ class AddController extends ChangeNotifier {
     // }
   }
 
-  Future<void> checkSave() async {
+  Future<void> checkSave(BuildContext context) async {
     await checkValidate();
     // eu nao add o fileIsValid
+    _getNotasFiscaisServicies.consultarNotas();
     if ((_nameInvoiceIsValid &&
             _dateWorkIsValid &&
             _invoiceAmountIsValid &&
             _descriptionIsValid) ==
         true) {
-      _getNotasFiscaisServicies.addNotasToken(
+      String getAddNotas = await _getNotasFiscaisServicies.addNotasToken(
         data: dateWork.text,
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,
       );
-      _getNotasFiscaisServicies.consultarNotasPorToken('tokenEx2');
+      if (getAddNotas == 'sucesso') {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Adicionado com sucesso!'),
+          ),
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(getAddNotas),
+          ),
+        );
+      }
+
+      //=====busca
+      log('lista');
     } else {}
   }
 }

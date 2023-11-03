@@ -1,50 +1,50 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 
 class GetNotasFiscaisServicies {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final BoxStorage _boxStorage = BoxStorage();
 
   Future<void> consultarNotas() async {
+    log('consultar');
     try {
       // Acesse o documento 'nota' dentro do caminho '/notasFiscais/HHXwS0Pm4xUOLJnxbia6'.
-      final QuerySnapshot notaDocument = await _firebaseFirestore
+      final Stream<QuerySnapshot> notaDocument = _firebaseFirestore
           .collection('notasFiscais')
-          .where('token', isEqualTo: 'token1')
-          .get();
+          .doc(_boxStorage.userToken.read('token').toString().trim())
+          .collection('nota')
+          .snapshots();
 
-      // .collection('notasFiscais')
-      // .doc('HHXwS0Pm4xUOLJnxbia6')
-      // .collection('nota')
-      // .doc('ID_DO_DOCUMENTO')
-      // .get();
-
-      if (notaDocument.docs.isNotEmpty) {
-        // Aqui você pode acessar os dados do documento 'nota'.
-        Map<String, dynamic> data =
-            notaDocument.docs.first.data() as Map<String, dynamic>;
-        print('Dados do documento "nota": $data');
-      } else {
-        print('O documento "nota" não existe.');
-      }
+      notaDocument.listen((querySnapshot) {
+        if (querySnapshot.docs.isNotEmpty) {
+          log('tem');
+          for (QueryDocumentSnapshot document in querySnapshot.docs) {
+            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+            log('Dados do documento "nota": $data');
+          }
+        } else {
+          log('Nenhum documento "nota" encontrado.');
+        }
+      });
     } catch (e) {
-      print('Erro ao consultar os dados: $e');
+      log('Erro ao consultar os dados: $e');
     }
   }
 
-  Future<void> addNotasToken({
+  Future<String> addNotasToken({
     required String nomeNota,
     required String data,
     required String valor,
     required String descricao,
   }) async {
     try {
-      DocumentReference notasFiscaisDocRef =
-          await FirebaseFirestore.instance.collection('notasFiscais').add({
-        'token': 'tokenEx2',
-      });
-
-      await notasFiscaisDocRef.collection('nota').add({
+      await _firebaseFirestore
+          .collection('notasFiscais')
+          .doc(_boxStorage.userToken.read('token').toString().trim())
+          .collection('nota')
+          .add({
         'data': data,
         'descricao': descricao,
         'nomeNota': nomeNota,
@@ -52,12 +52,15 @@ class GetNotasFiscaisServicies {
       });
     } catch (e) {
       log('Erro ao adicionar documentos: $e');
+      return 'Erro ao adicionar documentos: $e';
     }
+
+    return 'sucesso';
   }
 
   Future<void> consultarNotasPorToken(String token) async {
     try {
-      QuerySnapshot notasSnapshot = await FirebaseFirestore.instance
+      QuerySnapshot notasSnapshot = await _firebaseFirestore
           .collectionGroup('nota')
           .where('token', isEqualTo: token)
           .get();

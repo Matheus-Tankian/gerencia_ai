@@ -273,7 +273,7 @@ class _AddPageState extends State<AddPage> {
                   ButtonWidget(
                     title: 'Salvar',
                     onTap: () async {
-                      await provider.checkSave();
+                      await provider.checkSave(context);
                       log('salvou');
                       // ignore: use_build_context_synchronously
                     },
