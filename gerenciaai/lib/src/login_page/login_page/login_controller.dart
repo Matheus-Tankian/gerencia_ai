@@ -97,6 +97,7 @@ class LoginController extends ChangeNotifier {
         } else {
           changeCanLogin(true, '');
           _boxStorage.userEmail.write('email', email.text);
+          _boxStorage.userToken.write('token', email.text + senha.text);
           if (_logged == true) {
             _boxStorage.userLogged.write('logged', 'true');
           } else {
