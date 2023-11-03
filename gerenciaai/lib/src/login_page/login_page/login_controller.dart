@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
 import 'package:gerenciaai/services/get_storage.dart';
@@ -90,7 +88,6 @@ class LoginController extends ChangeNotifier {
         notifyListeners();
         if (erro != null) {
           changeCanLogin(false, erro);
-          log('erro: $erro');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.red,

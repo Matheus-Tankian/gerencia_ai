@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gerenciaai/services/get_storage.dart';
@@ -71,10 +69,8 @@ class AuthenticationService {
       final userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
       final userName = userData['nome'] as String;
 
-      log('Nome do usuário encontrado: $userName');
       return userName;
     } else {
-      log('Usuário com o e-mail $email não encontrado.');
       return '';
     }
   }
@@ -83,10 +79,8 @@ class AuthenticationService {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user != null) {
         String? idToken = await user.getIdToken();
-        log('ID Token do usuário: $idToken');
         _boxStorage.userToken.write('token', idToken);
       } else {
-        log('Nenhum usuário autenticado no momento.');
         _boxStorage.userToken.write('token', '');
       }
     });

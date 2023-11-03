@@ -50,8 +50,6 @@ class GetNotasFiscaisServicies {
         'nomeNota': nomeNota,
         'valorNota': valor,
       });
-
-      log('Documento adicionado com sucesso à subcoleção "nota".');
     } catch (e) {
       log('Erro ao adicionar documentos: $e');
     }
@@ -60,14 +58,11 @@ class GetNotasFiscaisServicies {
   Future<void> consultarNotasPorToken(String token) async {
     try {
       QuerySnapshot notasSnapshot = await FirebaseFirestore.instance
-          .collectionGroup(
-              'nota') // Use 'collectionGroup' para consultar em subcoleções
-          .where('token',
-              isEqualTo: token) // Filtra os documentos com o token desejado
+          .collectionGroup('nota')
+          .where('token', isEqualTo: token)
           .get();
 
       for (QueryDocumentSnapshot notaDocument in notasSnapshot.docs) {
-        // Aqui você pode acessar os dados de cada documento 'nota'.
         Map<String, dynamic> data = notaDocument.data() as Map<String, dynamic>;
         log('Dados do documento "nota": $data');
       }
@@ -75,6 +70,4 @@ class GetNotasFiscaisServicies {
       log('Erro ao consultar os dados: $e');
     }
   }
-
-// Para consultar os documentos com tokenEx2, chame a função com esse token.
 }

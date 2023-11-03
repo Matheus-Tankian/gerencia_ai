@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
@@ -17,14 +15,10 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      log('splash screnn ${_boxStorage.userLogged.read('logged').toString()}');
-
       if (_boxStorage.userLogged.read('logged').toString().trim() != 'false') {
         Navigator.of(context).pushReplacementNamed(Routes.homePage);
-        log('aqqq');
       } else {
         Navigator.of(context).pushReplacementNamed(Routes.loginPage);
-        log('aggggg');
       }
     });
   }

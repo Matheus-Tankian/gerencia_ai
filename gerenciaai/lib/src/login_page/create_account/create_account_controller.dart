@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
 
@@ -130,7 +128,6 @@ class CreateAccountController extends ChangeNotifier {
         (String? erro) {
           if (erro != null) {
             chageHasChecked(false, erro);
-            log('erro: $erro');
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
@@ -146,7 +143,6 @@ class CreateAccountController extends ChangeNotifier {
               ),
             );
             Navigator.pop(context);
-            log('snackbar foi cad');
           }
         },
       );

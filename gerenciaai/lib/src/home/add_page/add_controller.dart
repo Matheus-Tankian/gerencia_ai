@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 
@@ -98,7 +96,6 @@ class AddController extends ChangeNotifier {
             _invoiceAmountIsValid &&
             _descriptionIsValid) ==
         true) {
-      log('E valido');
       _getNotasFiscaisServicies.addNotasToken(
         data: dateWork.text,
         descricao: description.text,
@@ -106,8 +103,6 @@ class AddController extends ChangeNotifier {
         valor: invoiceAmount.text,
       );
       _getNotasFiscaisServicies.consultarNotasPorToken('tokenEx2');
-    } else {
-      log('Nao e valido');
-    }
+    } else {}
   }
 }

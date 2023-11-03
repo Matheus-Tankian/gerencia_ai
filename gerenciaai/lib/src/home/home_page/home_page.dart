@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
@@ -86,12 +84,9 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(top: 8),
                         child: IconButton(
                           onPressed: () {
-                            log('Sair');
                             boxStorage.userToken.write('token', '');
                             boxStorage.userLogged.write('logged', 'false');
-                            log('depois');
-                            log(boxStorage.userToken.read('token'));
-                            log(boxStorage.userLogged.read('logged'));
+
                             Navigator.of(context)
                                 .pushReplacementNamed(Routes.splashPage);
                           },
@@ -117,9 +112,7 @@ class _HomePageState extends State<HomePage> {
                         bottom: 10,
                       ),
                       child: InkWell(
-                        onTap: () {
-                          log('item: $index');
-                        },
+                        onTap: () {},
                         child: CardNotaWidget(
                           title: provider.notasRecentes[index].notaName,
                           data: provider.notasRecentes[index].notaData,
@@ -166,7 +159,6 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            log('mensal');
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -220,7 +212,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                            log('anual');
                             Navigator.push(
                               context,
                               MaterialPageRoute(

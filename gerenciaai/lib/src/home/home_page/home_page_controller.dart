@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
@@ -36,7 +34,6 @@ class HomePageController extends ChangeNotifier {
 
   changeUserName(String value) {
     _userName = value;
-    log('value: $value');
     notifyListeners();
   }
 
@@ -76,7 +73,6 @@ class HomePageController extends ChangeNotifier {
     String email = await _boxStorage.userEmail.read('email');
     AuthenticationService authenticationService = AuthenticationService();
     name = await authenticationService.getUserName(email: email);
-    log(name);
     changeUserName(name);
     authenticationService.setupAuthStateListener();
   }
