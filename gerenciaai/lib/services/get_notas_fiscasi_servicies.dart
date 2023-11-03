@@ -10,7 +10,6 @@ class GetNotasFiscaisServicies {
   Future<void> consultarNotas() async {
     log('consultar');
     try {
-      // Acesse o documento 'nota' dentro do caminho '/notasFiscais/HHXwS0Pm4xUOLJnxbia6'.
       final Stream<QuerySnapshot> notaDocument = _firebaseFirestore
           .collection('notasFiscais')
           .doc(_boxStorage.userToken.read('token').toString().trim())

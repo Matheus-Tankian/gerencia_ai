@@ -113,6 +113,10 @@ class AddController extends ChangeNotifier {
             content: Text('Adicionado com sucesso!'),
           ),
         );
+        nameInvoice.clear();
+        dateWork.clear();
+        invoiceAmount.clear();
+        description.clear();
       } else {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
