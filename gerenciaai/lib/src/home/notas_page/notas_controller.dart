@@ -1,45 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
+import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 
 class NotasController extends ChangeNotifier {
-  final List<NotaModel> _notas = [
-    NotaModel(
-      notaName: 'Nota um',
-      notaData: '11 Set 2001',
-      notaDescription: 'Essa nota foi do servico de vender droga',
-      notaPrice: 200.00,
-    ),
-    NotaModel(
-      notaName: 'Nota dois',
-      notaData: '23 Jan 2023',
-      notaDescription: 'Essa nota foi do servico de vender rins',
-      notaPrice: 1000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota tres',
-      notaData: '05 Maio 2023',
-      notaDescription: 'Essa nota foi do servico de vender gente',
-      notaPrice: 2000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota quatro',
-      notaData: '11 Set 2001',
-      notaDescription: 'Essa nota foi do servico de vender droga',
-      notaPrice: 200.00,
-    ),
-    NotaModel(
-      notaName: 'Nota cinco',
-      notaData: '23 Jan 2023',
-      notaDescription: 'Essa nota foi do servico de vender rins',
-      notaPrice: 1000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota seis',
-      notaData: '05 Maio 2023',
-      notaDescription: 'Essa nota foi do servico de vender gente',
-      notaPrice: 2000.00,
-    ),
-  ];
+  final GetNotasFiscaisServicies _getNotasFiscaisServicies =
+      GetNotasFiscaisServicies();
+  final List<NotaModel> _notas = [];
+
   List<NotaModel> get notas => _notas;
 
   TextEditingController search = TextEditingController();
@@ -64,5 +31,9 @@ class NotasController extends ChangeNotifier {
       filteredNotas = [];
     }
     notifyListeners();
+  }
+
+  Stream<List<NotaModel>> consultarNotas() {
+    return _getNotasFiscaisServicies.consultarNotas();
   }
 }

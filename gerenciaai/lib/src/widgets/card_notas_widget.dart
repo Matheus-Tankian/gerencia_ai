@@ -27,7 +27,7 @@ class CardNotaWidget extends StatelessWidget {
 
   final String title;
   final String data;
-  final double value;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class CardNotaWidget extends StatelessWidget {
               const Text('Valor:'),
               valorText ??
                   Text(
-                    'R\$ $value',
+                    'R\$ ${double.parse(value).toStringAsFixed(2)}',
                     style: const TextStyle(
                       color: Color(0xff4f3716),
                       fontSize: 16,

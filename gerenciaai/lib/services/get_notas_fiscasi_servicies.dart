@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gerenciaai/services/get_storage.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 
 class GetNotasFiscaisServicies {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final BoxStorage _boxStorage = BoxStorage();
 
-  Future<void> consultarNotas() async {
-    log('consultar');
+  Stream<List<NotaModel>> consultarNotas() {
     try {
       final Stream<QuerySnapshot> notaDocument = _firebaseFirestore
           .collection('notasFiscais')
@@ -16,19 +16,27 @@ class GetNotasFiscaisServicies {
           .collection('nota')
           .snapshots();
 
-      notaDocument.listen((querySnapshot) {
+      Stream<List<NotaModel>> notasStream = notaDocument.map((querySnapshot) {
+        List<NotaModel> notas = [];
         if (querySnapshot.docs.isNotEmpty) {
-          log('tem');
           for (QueryDocumentSnapshot document in querySnapshot.docs) {
             Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            log('Dados do documento "nota": $data');
+            NotaModel nota = NotaModel(
+              notaName: data['nomeNota'],
+              notaData: data['data'],
+              notaDescription: data['descricao'],
+              notaPrice: data['valorNota'],
+            );
+            notas.add(nota);
           }
-        } else {
-          log('Nenhum documento "nota" encontrado.');
         }
+        return notas;
       });
+
+      return notasStream;
     } catch (e) {
       log('Erro ao consultar os dados: $e');
+      return Stream.value([]);
     }
   }
 

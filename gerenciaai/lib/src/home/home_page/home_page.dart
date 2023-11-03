@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
@@ -99,45 +102,93 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
+              Visibility(
+                visible: true, //provider.consultarNotas().isEmpty,
+                replacement: Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  itemCount: provider.notasRecentes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: InkWell(
-                        onTap: () {},
-                        child: CardNotaWidget(
-                          title: provider.notasRecentes[index].notaName,
-                          data: provider.notasRecentes[index].notaData,
-                          value: provider.notasRecentes[index].notaPrice,
-                          height: 180,
-                          tap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageNota(
-                                  id: index,
-                                  nome: provider.notasRecentes[index].notaName,
-                                  data: provider.notasRecentes[index].notaData,
-                                  descricao: provider
-                                      .notasRecentes[index].notaDescription,
-                                  valor:
-                                      provider.notasRecentes[index].notaPrice,
-                                ),
-                              ),
-                            );
-                          },
+                  child: InkWell(
+                    onTap: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Container(
+                        height: 140,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 6,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          size: 60,
+                          color: Colors.grey,
                         ),
                       ),
-                    );
-                  },
+                    ),
+                  ),
+                ),
+                child: SizedBox(
+                  height: 180,
+                  child: StreamBuilder<List<NotaModel>>(
+                      stream: provider.consultarNotas(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text('Erro: ${snapshot.error}');
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Text('Nenhum dado encontrado.');
+                        } else {
+                          final notas = snapshot.data!;
+                          final itemCount = min(10, notas.length);
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.only(left: 16),
+                            itemCount: itemCount,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 20,
+                                  bottom: 10,
+                                ),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: CardNotaWidget(
+                                    title: notas[index].notaName,
+                                    data: notas[index].notaData,
+                                    value: notas[index].notaPrice,
+                                    height: 180,
+                                    tap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => PageNota(
+                                            id: index,
+                                            nome: notas[index].notaName,
+                                            data: notas[index].notaData,
+                                            descricao:
+                                                notas[index].notaDescription,
+                                            valor: double.parse(
+                                                notas[index].notaPrice),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      }),
                 ),
               ),
               Padding(

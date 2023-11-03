@@ -1,36 +1,21 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/services/get_storage.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 
 class HomePageController extends ChangeNotifier {
   final BoxStorage _boxStorage = BoxStorage();
+  final GetNotasFiscaisServicies _getNotasFiscaisServicies =
+      GetNotasFiscaisServicies();
 
   int aux = 0;
 
   String _userName = '';
   String get userName => _userName;
 
-  final List<NotaModel> _notasRecentes = [
-    NotaModel(
-      notaName: 'Nota um',
-      notaData: '11 Set 2001',
-      notaDescription: 'Essa nota foi do servico de vender droga',
-      notaPrice: 200.00,
-    ),
-    NotaModel(
-      notaName: 'Nota dois',
-      notaData: '23 Jan 2023',
-      notaDescription: 'Essa nota foi do servico de vender rins',
-      notaPrice: 1000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota tres',
-      notaData: '05 Maio 2023',
-      notaDescription: 'Essa nota foi do servico de vender gente',
-      notaPrice: 2000.00,
-    ),
-  ];
+  final List<NotaModel> _notasRecentes = [];
 
   changeUserName(String value) {
     _userName = value;
@@ -76,6 +61,10 @@ class HomePageController extends ChangeNotifier {
     changeUserName(name);
     // authenticationService.setupAuthStateListener();
   }
+
+  Stream<List<NotaModel>> consultarNotas() {
+    return _getNotasFiscaisServicies.consultarNotas();
+  }
 }
 
 LinearGradient get _barsGradient => const LinearGradient(
@@ -89,17 +78,3 @@ LinearGradient get _barsGradient => const LinearGradient(
     );
 
 //esse modelo e temporario
-
-class NotaModel {
-  final String notaName;
-  final String notaData;
-  final String notaDescription;
-  final double notaPrice;
-
-  NotaModel({
-    required this.notaDescription,
-    required this.notaName,
-    required this.notaData,
-    required this.notaPrice,
-  });
-}
