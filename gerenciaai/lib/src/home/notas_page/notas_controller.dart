@@ -33,6 +33,26 @@ class NotasController extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> searchNotas(String value) async {
+  //   final searchTerm = value.toLowerCase();
+  //   List<NotaModel> todasNotas = await consultarNotas().first;
+
+  //   if (searchTerm.isEmpty || searchTerm == '') {
+  //     filteredNotas = todasNotas;
+  //   } else {
+  //     filteredNotas = todasNotas.where((nota) {
+  //       return nota.notaName.toLowerCase().contains(searchTerm) ||
+  //           nota.notaData.toLowerCase().contains(searchTerm) ||
+  //           nota.notaDescription.toLowerCase().contains(searchTerm);
+  //     }).toList();
+  //   }
+
+  //   if (filteredNotas.isEmpty) {
+  //     filteredNotas = [];
+  //   }
+  //   notifyListeners();
+  // }
+
   Stream<List<NotaModel>> consultarNotas() {
     return _getNotasFiscaisServicies.consultarNotas();
   }
