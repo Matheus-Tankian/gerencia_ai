@@ -223,8 +223,12 @@ class _LoginViewState extends State<LoginView> {
                                     width: 14,
                                     height: 14,
                                     child: Checkbox(
-                                      value: false,
-                                      onChanged: (newValue) {},
+                                      value: provider.logged,
+                                      onChanged: (newValue) {
+                                        log('Newvalue: $newValue');
+                                        provider
+                                            .changeLogged(newValue ?? false);
+                                      },
                                     ),
                                   ),
                                   const SizedBox(width: 12),

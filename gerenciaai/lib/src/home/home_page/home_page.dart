@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
 import 'package:gerenciaai/src/widgets/report_card.dart';
 import 'package:provider/provider.dart';
+import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    BoxStorage boxStorage = BoxStorage();
     return ChangeNotifierProvider(
       create: (_) => HomePageController(),
       child: Consumer<HomePageController>(
@@ -28,49 +31,76 @@ class _HomePageState extends State<HomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    RichText(
-                      text: TextSpan(
-                        text: 'Olá ',
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: provider.getUserName(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'Olá ',
                             style: const TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xffF9A826),
+                              color: Colors.black,
                             ),
+                            children: [
+                              TextSpan(
+                                text: provider.getUserName(),
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffF9A826),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Text(
+                          'Tenha um bom dia!',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Serviços recentes',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Text(
-                      'Tenha um bom dia!',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Serviços recentes',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    //
+                    const Spacer(),
+
+                    Container(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: IconButton(
+                          onPressed: () {
+                            log('Sair');
+                            boxStorage.userToken.write('token', '');
+                            boxStorage.userLogged.write('logged', 'false');
+                            log('depois');
+                            log(boxStorage.userToken.read('token'));
+                            log(boxStorage.userLogged.read('logged'));
+                            Navigator.of(context)
+                                .pushReplacementNamed(Routes.splashPage);
+                          },
+                          icon: const Icon(
+                            Icons.exit_to_app_rounded,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                        )),
                   ],
                 ),
               ),

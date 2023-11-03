@@ -18,6 +18,9 @@ class LoginController extends ChangeNotifier {
   bool _canLogin = false;
   bool get canLogin => _canLogin;
 
+  bool _logged = false;
+  bool get logged => _logged;
+
   bool _emailHasError = false;
   bool get emailHasError => _emailHasError;
 
@@ -30,14 +33,13 @@ class LoginController extends ChangeNotifier {
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
-  changeIsObscureText() {
-    _isObscureText = !_isObscureText;
+  changeLogged(bool value) {
+    _logged = value;
     notifyListeners();
   }
 
-  Future<void> changeIsLoading() async {
-    Future.delayed(const Duration(seconds: 2));
-    _isLoading = true;
+  changeIsObscureText() {
+    _isObscureText = !_isObscureText;
     notifyListeners();
   }
 
@@ -56,6 +58,12 @@ class LoginController extends ChangeNotifier {
 
   changeSenhaHasError(bool value) {
     _senhaHasError = value;
+    notifyListeners();
+  }
+
+  Future<void> changeIsLoading() async {
+    Future.delayed(const Duration(seconds: 2));
+    _isLoading = true;
     notifyListeners();
   }
 
@@ -91,8 +99,13 @@ class LoginController extends ChangeNotifier {
           );
         } else {
           changeCanLogin(true, '');
-          log('Login');
           _boxStorage.userEmail.write('email', email.text);
+          if (_logged == true) {
+            _boxStorage.userLogged.write('logged', 'true');
+          } else {
+            _boxStorage.userLogged.write('logged', 'false');
+          }
+
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.homePage, (route) => false);
         }
