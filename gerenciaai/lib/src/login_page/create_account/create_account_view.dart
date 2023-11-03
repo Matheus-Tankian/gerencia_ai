@@ -166,7 +166,7 @@ class CreateAccountView extends StatelessWidget {
                               ),
                             ),
                             TextField(
-                              controller: provider.newEmial,
+                              controller: provider.newEmail,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 hintText: 'Insira seu e-mail',
@@ -188,7 +188,7 @@ class CreateAccountView extends StatelessWidget {
                                 children: [
                                   const SizedBox(height: 8),
                                   Visibility(
-                                    visible: provider.newEmial.text.isNotEmpty,
+                                    visible: provider.newEmail.text.isNotEmpty,
                                     replacement: const Text(
                                       'E-mail vazio',
                                       style: TextStyle(

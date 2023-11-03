@@ -1,11 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
+import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 
 class LoginController extends ChangeNotifier {
   final AuthenticationService _authenticationLogin = AuthenticationService();
+  final BoxStorage _boxStorage = BoxStorage();
 
   TextEditingController email = TextEditingController();
   TextEditingController senha = TextEditingController();
@@ -15,6 +15,9 @@ class LoginController extends ChangeNotifier {
 
   bool _canLogin = false;
   bool get canLogin => _canLogin;
+
+  bool _logged = false;
+  bool get logged => _logged;
 
   bool _emailHasError = false;
   bool get emailHasError => _emailHasError;
@@ -28,14 +31,13 @@ class LoginController extends ChangeNotifier {
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
-  changeIsObscureText() {
-    _isObscureText = !_isObscureText;
+  changeLogged(bool value) {
+    _logged = value;
     notifyListeners();
   }
 
-  Future<void> changeIsLoading() async {
-    Future.delayed(const Duration(seconds: 2));
-    _isLoading = true;
+  changeIsObscureText() {
+    _isObscureText = !_isObscureText;
     notifyListeners();
   }
 
@@ -54,6 +56,12 @@ class LoginController extends ChangeNotifier {
 
   changeSenhaHasError(bool value) {
     _senhaHasError = value;
+    notifyListeners();
+  }
+
+  Future<void> changeIsLoading() async {
+    Future.delayed(const Duration(seconds: 2));
+    _isLoading = true;
     notifyListeners();
   }
 
@@ -80,7 +88,6 @@ class LoginController extends ChangeNotifier {
         notifyListeners();
         if (erro != null) {
           changeCanLogin(false, erro);
-          log('erro: $erro');
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.red,
@@ -89,7 +96,13 @@ class LoginController extends ChangeNotifier {
           );
         } else {
           changeCanLogin(true, '');
-          log('Login');
+          _boxStorage.userEmail.write('email', email.text);
+          if (_logged == true) {
+            _boxStorage.userLogged.write('logged', 'true');
+          } else {
+            _boxStorage.userLogged.write('logged', 'false');
+          }
+
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.homePage, (route) => false);
         }

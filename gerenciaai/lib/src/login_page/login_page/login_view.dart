@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 import 'package:gerenciaai/src/login_page/login_page/login_controller.dart';
@@ -223,8 +221,11 @@ class _LoginViewState extends State<LoginView> {
                                     width: 14,
                                     height: 14,
                                     child: Checkbox(
-                                      value: false,
-                                      onChanged: (newValue) {},
+                                      value: provider.logged,
+                                      onChanged: (newValue) {
+                                        provider
+                                            .changeLogged(newValue ?? false);
+                                      },
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -238,8 +239,6 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ],
                               ),
-
-                              // const Spacer(),
                               InkWell(
                                 onTap: () {},
                                 child: const Text(
@@ -256,8 +255,6 @@ class _LoginViewState extends State<LoginView> {
                           const SizedBox(height: 38),
                           InkWell(
                             onTap: () async {
-                              log('loggin');
-
                               await provider.checkLogin(context);
                             },
                             child: Container(

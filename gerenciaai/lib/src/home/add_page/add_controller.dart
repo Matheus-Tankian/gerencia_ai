@@ -1,8 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 
 class AddController extends ChangeNotifier {
+  final GetNotasFiscaisServicies _getNotasFiscaisServicies =
+      GetNotasFiscaisServicies();
+
   TextEditingController nameInvoice = TextEditingController();
 
   TextEditingController dateWork = TextEditingController();
@@ -94,9 +96,13 @@ class AddController extends ChangeNotifier {
             _invoiceAmountIsValid &&
             _descriptionIsValid) ==
         true) {
-      log('E valido');
-    } else {
-      log('Nao e valido');
-    }
+      _getNotasFiscaisServicies.addNotasToken(
+        data: dateWork.text,
+        descricao: description.text,
+        nomeNota: nameInvoice.text,
+        valor: invoiceAmount.text,
+      );
+      _getNotasFiscaisServicies.consultarNotasPorToken('tokenEx2');
+    } else {}
   }
 }

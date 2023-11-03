@@ -7,6 +7,7 @@ import 'package:gerenciaai/src/login_page/login_page/login_view.dart';
 import 'package:gerenciaai/src/splash_page/splash_view.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await GetStorage.init();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const MyApp()));
