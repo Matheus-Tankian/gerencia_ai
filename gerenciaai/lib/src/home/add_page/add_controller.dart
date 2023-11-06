@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 
@@ -126,9 +124,6 @@ class AddController extends ChangeNotifier {
           ),
         );
       }
-
-      //=====busca
-      log('lista');
-    } else {}
+    }
   }
 }
