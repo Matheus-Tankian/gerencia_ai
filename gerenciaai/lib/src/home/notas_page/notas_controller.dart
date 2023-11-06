@@ -22,9 +22,9 @@ class NotasController extends ChangeNotifier {
   NotasController() {
     // Adicione a inicialização no construtor
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
-      _notas.clear(); // Limpa a lista atual
-      _notas.addAll(listaDeNotas); // Adiciona as novas notas à lista
-      filteredNotas = _notas; // Atualiza também a lista filtrada
+      _notas.clear();
+      _notas.addAll(listaDeNotas);
+      filteredNotas = _notas;
       isLoadingFunc();
       notifyListeners();
     });
