@@ -20,33 +20,39 @@ class NotasPage extends StatelessWidget {
               top: 16,
               bottom: 0,
             ),
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Notas Fiscais',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+            child: Visibility(
+              visible: !provider.isLoading,
+              replacement: const Center(
+                child: CircularProgressIndicator(),
+              ),
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Notas Fiscais',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                TextFieldWidget(
-                  textController: provider.search,
-                  onChanged: (value) {
-                    provider.searchNotas(value);
-                  },
-                ),
-                const SizedBox(height: 6),
-                Expanded(
-                  child: ListNotassWidget(
-                    controller: provider,
+                  const SizedBox(height: 12),
+                  TextFieldWidget(
+                    textController: provider.search,
+                    onChanged: (value) {
+                      provider.searchNotas(value);
+                    },
                   ),
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Expanded(
+                    child: ListNotassWidget(
+                      controller: provider,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

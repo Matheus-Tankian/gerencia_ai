@@ -7,6 +7,10 @@ import 'package:gerenciaai/src/home/models/nota_model.dart';
 class NotasController extends ChangeNotifier {
   final GetNotasFiscaisServicies _getNotasFiscaisServicies =
       GetNotasFiscaisServicies();
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   final List<NotaModel> _notas = [];
 
   List<NotaModel> get notas => _notas;
@@ -21,8 +25,14 @@ class NotasController extends ChangeNotifier {
       _notas.clear(); // Limpa a lista atual
       _notas.addAll(listaDeNotas); // Adiciona as novas notas à lista
       filteredNotas = _notas; // Atualiza também a lista filtrada
+      isLoadingFunc();
       notifyListeners();
     });
+  }
+
+  changeIsLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
   }
 
   void searchNotas(String value) {
@@ -45,5 +55,10 @@ class NotasController extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future<void> isLoadingFunc() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await changeIsLoading(false);
   }
 }
