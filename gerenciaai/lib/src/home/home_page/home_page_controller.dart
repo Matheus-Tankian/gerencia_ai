@@ -15,10 +15,22 @@ class HomePageController extends ChangeNotifier {
   String _userName = '';
   String get userName => _userName;
 
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
   final List<NotaModel> _notasRecentes = [];
+
+  HomePageController() {
+    isLoadingFunc();
+  }
 
   changeUserName(String value) {
     _userName = value;
+    notifyListeners();
+  }
+
+  changeIsLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
@@ -64,6 +76,11 @@ class HomePageController extends ChangeNotifier {
 
   Stream<List<NotaModel>> consultarNotas() {
     return _getNotasFiscaisServicies.consultarNotas();
+  }
+
+  Future<void> isLoadingFunc() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await changeIsLoading(false);
   }
 }
 

@@ -27,10 +27,14 @@ class _ListNotassWidgetState extends State<ListNotassWidget> {
             child: Column(
             children: [
               SizedBox(height: 20),
-              CircularProgressIndicator(),
-              SizedBox(height: 20),
               Center(
-                child: Text('A lista esta vazia'),
+                child: Text(
+                  'Nenhum item encontrado.',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ],
           ))
