@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/src/home/models/nota_model.dart';
@@ -13,6 +15,16 @@ class NotasController extends ChangeNotifier {
 
   List<NotaModel> filteredNotas = [];
 
+  NotasController() {
+    // Adicione a inicialização no construtor
+    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+      _notas.clear(); // Limpa a lista atual
+      _notas.addAll(listaDeNotas); // Adiciona as novas notas à lista
+      filteredNotas = _notas; // Atualiza também a lista filtrada
+      notifyListeners();
+    });
+  }
+
   void searchNotas(String value) {
     final searchTerm = value.toLowerCase();
     if (searchTerm.isEmpty || searchTerm == '') {
@@ -23,37 +35,15 @@ class NotasController extends ChangeNotifier {
             nota.notaData.toLowerCase().contains(searchTerm) ||
             nota.notaDescription.toLowerCase().contains(searchTerm);
       }).toList();
-
-      filteredNotas;
     }
 
-    if (filteredNotas.isEmpty) {
-      filteredNotas = [];
+    for (final value in filteredNotas) {
+      log(value.notaData);
+      log(value.notaDescription);
+      log(value.notaName);
+      log(value.notaPrice);
     }
+
     notifyListeners();
-  }
-
-  // Future<void> searchNotas(String value) async {
-  //   final searchTerm = value.toLowerCase();
-  //   List<NotaModel> todasNotas = await consultarNotas().first;
-
-  //   if (searchTerm.isEmpty || searchTerm == '') {
-  //     filteredNotas = todasNotas;
-  //   } else {
-  //     filteredNotas = todasNotas.where((nota) {
-  //       return nota.notaName.toLowerCase().contains(searchTerm) ||
-  //           nota.notaData.toLowerCase().contains(searchTerm) ||
-  //           nota.notaDescription.toLowerCase().contains(searchTerm);
-  //     }).toList();
-  //   }
-
-  //   if (filteredNotas.isEmpty) {
-  //     filteredNotas = [];
-  //   }
-  //   notifyListeners();
-  // }
-
-  Stream<List<NotaModel>> consultarNotas() {
-    return _getNotasFiscaisServicies.consultarNotas();
   }
 }
