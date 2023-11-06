@@ -23,7 +23,17 @@ class _ListNotassWidgetState extends State<ListNotassWidget> {
         .controller.filteredNotas; // Obtenha as notas diretamente do controller
 
     return notas.isEmpty
-        ? const Center(child: CircularProgressIndicator())
+        ? const Center(
+            child: Column(
+            children: [
+              SizedBox(height: 20),
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Center(
+                child: Text('A lista esta vazia'),
+              ),
+            ],
+          ))
         : GridView.builder(
             itemCount: notas.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
