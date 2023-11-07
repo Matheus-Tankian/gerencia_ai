@@ -102,7 +102,7 @@ class AddController extends ChangeNotifier {
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,
-        link: link,
+        linkPdf: link,
       );
       if (getAddNotas == 'sucesso') {
         // ignore: use_build_context_synchronously
