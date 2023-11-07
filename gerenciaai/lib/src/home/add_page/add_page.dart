@@ -20,6 +20,8 @@ class _AddPageState extends State<AddPage> {
   PlatformFile? uploadTask;
   String url = '';
 
+  bool isVisibility = false;
+
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
 
@@ -262,22 +264,9 @@ class _AddPageState extends State<AddPage> {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          // Text(
-                          //   pickedFile != null
-                          //       ? pickedFile!.name
-                          //       : 'Nenhum arquivo escolhido',
-                          //   overflow: TextOverflow.ellipsis,
-                          //   style: const TextStyle(
-                          //     color: Color(0xffADADAD),
-                          //     fontSize: 16,
-                          //     fontWeight: FontWeight.w500,
-                          //   ),
-                          // ),
-
                           Text(
                             pickedFile != null
-                                ? (pickedFile!.name.length >
-                                        20 // Defina o número desejado de caracteres
+                                ? (pickedFile!.name.length > 20
                                     ? '${pickedFile!.name.substring(0, 20)}...'
                                     : pickedFile!.name)
                                 : 'Nenhum arquivo escolhido',
@@ -310,13 +299,28 @@ class _AddPageState extends State<AddPage> {
                   ButtonWidget(
                     title: 'Salvar',
                     onTap: () async {
-                      await uploadFile();
-                      log('teste link aq: $url');
+                      setState(() {
+                        isVisibility = true;
+                      });
+
+                      if (pickedFile != null) {
+                        await uploadFile();
+                      }
                       // ignore: use_build_context_synchronously
                       await provider.checkSave(context, url);
-
-                      log('salvou');
+                      setState(() {
+                        isVisibility = false;
+                      });
                     },
+                  ),
+                  const SizedBox(height: 20),
+                  Visibility(
+                    visible: isVisibility,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xffF9A826),
+                      ),
+                    ),
                   ),
                 ],
               ),
