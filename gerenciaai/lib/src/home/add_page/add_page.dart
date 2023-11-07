@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:gerenciaai/src/home/add_page/add_controller.dart';
@@ -14,7 +16,30 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  String filePath = '';
+  PlatformFile? pickedFile;
+  PlatformFile? uploadTask;
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
+
+    if (result == null) return;
+    setState(() {
+      pickedFile = result.files.first;
+    });
+  }
+
+  Future<void> uploadFile() async {
+    final path = 'files/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    final uploadTask = ref.putFile(file);
+
+    final snapshot = await uploadTask.whenComplete(() {});
+
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    log('url: $urlDownload');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,17 +228,9 @@ class _AddPageState extends State<AddPage> {
                       child: Row(
                         children: [
                           ElevatedButton(
-                            onPressed: () async {
-                              FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-
-                              if (result != null) {
-                                PlatformFile file = result.files.first;
-                                filePath = file.path ?? '';
-                              }
+                            onPressed: () {
+                              selectFile();
+                              log('nome: $pickedFile');
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.black,
@@ -241,11 +258,25 @@ class _AddPageState extends State<AddPage> {
                             ),
                           ),
                           const SizedBox(width: 6),
+                          // Text(
+                          //   pickedFile != null
+                          //       ? pickedFile!.name
+                          //       : 'Nenhum arquivo escolhido',
+                          //   overflow: TextOverflow.ellipsis,
+                          //   style: const TextStyle(
+                          //     color: Color(0xffADADAD),
+                          //     fontSize: 16,
+                          //     fontWeight: FontWeight.w500,
+                          //   ),
+                          // ),
+
                           Text(
-                            filePath != ''
-                                ? filePath
+                            pickedFile != null
+                                ? (pickedFile!.name.length >
+                                        20 // Defina o número desejado de caracteres
+                                    ? '${pickedFile!.name.substring(0, 20)}...'
+                                    : pickedFile!.name)
                                 : 'Nenhum arquivo escolhido',
-                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: Color(0xffADADAD),
                               fontSize: 16,
@@ -276,6 +307,7 @@ class _AddPageState extends State<AddPage> {
                     title: 'Salvar',
                     onTap: () async {
                       await provider.checkSave(context);
+                      await uploadFile();
                       log('salvou');
                       // ignore: use_build_context_synchronously
                     },
