@@ -45,6 +45,7 @@ class GetNotasFiscaisServicies {
     required String data,
     required String valor,
     required String descricao,
+    required String link,
   }) async {
     try {
       await _firebaseFirestore
@@ -56,6 +57,7 @@ class GetNotasFiscaisServicies {
         'descricao': descricao,
         'nomeNota': nomeNota,
         'valorNota': valor,
+        'linkPdf': link,
       });
     } catch (e) {
       log('Erro ao adicionar documentos: $e');

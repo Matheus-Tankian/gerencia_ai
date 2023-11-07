@@ -88,7 +88,7 @@ class AddController extends ChangeNotifier {
     // }
   }
 
-  Future<void> checkSave(BuildContext context) async {
+  Future<void> checkSave(BuildContext context, String link) async {
     await checkValidate();
     // eu nao add o fileIsValid
     _getNotasFiscaisServicies.consultarNotas();
@@ -102,6 +102,7 @@ class AddController extends ChangeNotifier {
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,
+        link: link,
       );
       if (getAddNotas == 'sucesso') {
         // ignore: use_build_context_synchronously

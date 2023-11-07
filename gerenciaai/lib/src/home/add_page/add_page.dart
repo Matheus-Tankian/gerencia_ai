@@ -18,6 +18,7 @@ class AddPage extends StatefulWidget {
 class _AddPageState extends State<AddPage> {
   PlatformFile? pickedFile;
   PlatformFile? uploadTask;
+  String url = '';
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
@@ -39,6 +40,9 @@ class _AddPageState extends State<AddPage> {
 
     final urlDownload = await snapshot.ref.getDownloadURL();
     log('url: $urlDownload');
+    setState(() {
+      url = urlDownload.toString();
+    });
   }
 
   @override
@@ -306,10 +310,12 @@ class _AddPageState extends State<AddPage> {
                   ButtonWidget(
                     title: 'Salvar',
                     onTap: () async {
-                      await provider.checkSave(context);
                       await uploadFile();
-                      log('salvou');
+                      log('teste link aq: $url');
                       // ignore: use_build_context_synchronously
+                      await provider.checkSave(context, url);
+
+                      log('salvou');
                     },
                   ),
                 ],
