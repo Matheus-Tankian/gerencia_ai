@@ -228,7 +228,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ReportCard(),
+                                  builder: (context) => const ReportCard(
+                                    title: 'Mensal',
+                                  ),
                                 ),
                               );
                             },
@@ -281,7 +283,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const ReportCard(),
+                                  builder: (context) => const ReportCard(
+                                    title: 'Anual',
+                                  ),
                                 ),
                               );
                             },

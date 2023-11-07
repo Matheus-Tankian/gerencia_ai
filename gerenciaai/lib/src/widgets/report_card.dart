@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
 class ReportCard extends StatelessWidget {
-  const ReportCard({super.key});
+  final String title;
+  const ReportCard({
+    super.key,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Relatorio Mensal',
-            style: TextStyle(
+          title: Text(
+            'Relatorio $title',
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          backgroundColor: const Color(0xffffc041),
+          backgroundColor: const Color(0xfff9a826),
         ),
         body: Padding(
           padding: const EdgeInsets.all(12),
@@ -22,6 +27,144 @@ class ReportCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Visibility(
+                visible: title == 'Anual',
+                replacement: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Informe:',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      height: 40,
+                      width: 120,
+                      child: TextField(
+                        keyboardType: TextInputType.datetime,
+                        controller: textController,
+                        decoration: const InputDecoration(
+                          hintText: 'Mes',
+                          hintStyle: TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.calendar_month,
+                            color: Color(0xffF9A826),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: false == false
+                                  ? Colors.red
+                                  : Color(0xffF9A826),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      height: 40,
+                      width: 120,
+                      child: TextField(
+                        keyboardType: TextInputType.datetime,
+                        controller: textController,
+                        decoration: const InputDecoration(
+                          hintText: 'Ano',
+                          hintStyle: TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.calendar_month,
+                            color: Color(0xffF9A826),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: false == false
+                                  ? Colors.red
+                                  : Color(0xffF9A826),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          color: Color(0xfff9a826),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Informe o Ano:',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(width: 8),
+                    SizedBox(
+                      height: 40,
+                      width: 180,
+                      child: TextField(
+                        keyboardType: TextInputType.datetime,
+                        controller: textController,
+                        decoration: const InputDecoration(
+                          hintText: 'Ano',
+                          hintStyle: TextStyle(
+                            color: Color(0xffADADAD),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.calendar_month,
+                            color: Color(0xffF9A826),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: false == false
+                                  ? Colors.red
+                                  : Color(0xffF9A826),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          color: Color(0xfff9a826),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,38 +271,47 @@ class ReportCard extends StatelessWidget {
               const SizedBox(height: 4),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 12,
+                  itemCount: 6,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'nota$index',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 6,
+                        ),
+                        color: index % 2 == 0
+                            ? const Color.fromARGB(255, 167, 166, 166)
+                            : Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'nota$index',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '0$index/10/2023',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                            Text(
+                              '0$index/10/2023',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'R\$ ${index}00',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                            Text(
+                              'R\$ ${index}00',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
