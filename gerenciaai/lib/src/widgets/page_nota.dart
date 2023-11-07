@@ -163,7 +163,7 @@ class PageNota extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'R\$ ${valor!}',
+                        'R\$ ${valor!.toStringAsFixed(2)}',
                         style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,

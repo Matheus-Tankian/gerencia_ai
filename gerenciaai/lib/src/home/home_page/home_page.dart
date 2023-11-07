@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_storage.dart';
 import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
@@ -22,282 +25,345 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider(
       create: (_) => HomePageController(),
       child: Consumer<HomePageController>(
-        builder: (_, provider, __) => SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: 'Olá ',
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
+        builder: (_, provider, __) => Visibility(
+          visible: !provider.isLoading,
+          replacement: const Center(
+            child: CircularProgressIndicator(),
+          ),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              text: 'Olá ',
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: provider.getUserName(),
+                                  style: const TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF9A826),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Text(
+                            'Tenha um bom dia!',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
                               color: Colors.black,
                             ),
-                            children: [
-                              TextSpan(
-                                text: provider.getUserName(),
-                                style: const TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffF9A826),
-                                ),
-                              ),
-                            ],
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Text(
-                          'Tenha um bom dia!',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black,
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Serviços recentes',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'Serviços recentes',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    //
-                    const Spacer(),
+                        ],
+                      ),
+                      //
+                      const Spacer(),
 
-                    Container(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: IconButton(
-                          onPressed: () {
-                            boxStorage.userToken.write('token', '');
-                            boxStorage.userLogged.write('logged', 'false');
+                      Container(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: IconButton(
+                            onPressed: () {
+                              boxStorage.userToken.write('token', '');
+                              boxStorage.userLogged.write('logged', 'false');
 
-                            Navigator.of(context)
-                                .pushReplacementNamed(Routes.splashPage);
-                          },
-                          icon: const Icon(
-                            Icons.exit_to_app_rounded,
-                            size: 30,
-                            color: Colors.black,
-                          ),
-                        )),
-                  ],
+                              Navigator.of(context)
+                                  .pushReplacementNamed(Routes.splashPage);
+                            },
+                            icon: const Icon(
+                              Icons.exit_to_app_rounded,
+                              size: 30,
+                              color: Colors.black,
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 16),
-                  itemCount: provider.notasRecentes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                        bottom: 10,
+                Visibility(
+                  visible: true, //provider.consultarNotas().isEmpty,
+                  replacement: Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Container(
+                          height: 140,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 6,
+                            ),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
+                        ),
                       ),
-                      child: InkWell(
-                        onTap: () {},
-                        child: CardNotaWidget(
-                          title: provider.notasRecentes[index].notaName,
-                          data: provider.notasRecentes[index].notaData,
-                          value: provider.notasRecentes[index].notaPrice,
-                          height: 180,
-                          tap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PageNota(
-                                  id: index,
-                                  nome: provider.notasRecentes[index].notaName,
-                                  data: provider.notasRecentes[index].notaData,
-                                  descricao: provider
-                                      .notasRecentes[index].notaDescription,
-                                  valor:
-                                      provider.notasRecentes[index].notaPrice,
+                    ),
+                  ),
+                  child: SizedBox(
+                    height: 180,
+                    child: StreamBuilder<List<NotaModel>>(
+                        stream: provider.consultarNotas(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Text('Erro: ${snapshot.error}');
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                'Nenhum item encontrado.',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red,
                                 ),
                               ),
                             );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Gerar relatorio',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ReportCard(),
-                              ),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffffc041),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(8),
+                          } else {
+                            final notas = snapshot.data!;
+                            final itemCount = min(6, notas.length);
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.only(left: 16),
+                              itemCount: itemCount,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: 20,
+                                    bottom: 10,
                                   ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      blurRadius: 4,
-                                      offset: const Offset(
-                                        4,
-                                        8,
-                                      ),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: CardNotaWidget(
+                                      title: notas[index].notaName,
+                                      data: notas[index].notaData,
+                                      value: notas[index].notaPrice,
+                                      height: 180,
+                                      tap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PageNota(
+                                              id: index,
+                                              nome: notas[index].notaName,
+                                              data: notas[index].notaData,
+                                              descricao:
+                                                  notas[index].notaDescription,
+                                              valor: double.parse(
+                                                  notas[index].notaPrice),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  ],
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.assignment_outlined,
-                                    size: 34,
-                                    color: Color(0xff4f3716),
                                   ),
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              const SizedBox(
-                                width: 100,
-                                child: Text(
-                                  'Relatorio Mensal',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ReportCard(),
-                              ),
+                                );
+                              },
                             );
-                          },
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 80,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffffc041),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(8),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      blurRadius: 4,
-                                      offset: const Offset(
-                                        4,
-                                        8,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.assignment_outlined,
-                                    size: 34,
-                                    color: Color(0xff4f3716),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 6),
-                              const SizedBox(
-                                width: 100,
-                                child: Text(
-                                  'Relatorio anual',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 26),
-                    const Text(
-                      'Graficos anual de 2023',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 52),
-                    SizedBox(
-                      height: 200,
-                      child: BarChartWidget(
-                        barGroupList: provider.createBarChartGroups([
-                          100,
-                          200,
-                          300,
-                          400,
-                          500,
-                          600,
-                          700,
-                          800,
-                          900,
-                          1000,
-                          1100,
-                          1200
-                        ]),
-                      ),
-                    ),
-                  ],
+                          }
+                        }),
+                  ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Gerar relatorio',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ReportCard(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffffc041),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        blurRadius: 4,
+                                        offset: const Offset(
+                                          4,
+                                          8,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.assignment_outlined,
+                                      size: 34,
+                                      color: Color(0xff4f3716),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                const SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    'Relatorio Mensal',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ReportCard(),
+                                ),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xffffc041),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        blurRadius: 4,
+                                        offset: const Offset(
+                                          4,
+                                          8,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.assignment_outlined,
+                                      size: 34,
+                                      color: Color(0xff4f3716),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                const SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    'Relatorio anual',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 26),
+                      const Text(
+                        'Graficos anual de 2023',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 52),
+                      SizedBox(
+                        height: 200,
+                        child: BarChartWidget(
+                          barGroupList: provider.createBarChartGroups([
+                            100,
+                            200,
+                            300,
+                            400,
+                            500,
+                            600,
+                            700,
+                            800,
+                            900,
+                            1000,
+                            1100,
+                            1200
+                          ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

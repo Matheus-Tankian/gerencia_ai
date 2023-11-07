@@ -76,6 +76,7 @@ class _AddPageState extends State<AddPage> {
                     child: const SizedBox(height: 16),
                   ),
                   TextField(
+                    keyboardType: TextInputType.datetime,
                     controller: provider.dateWork,
                     decoration: InputDecoration(
                       hintText: 'Data do serviço',
@@ -112,6 +113,7 @@ class _AddPageState extends State<AddPage> {
                     child: const SizedBox(height: 16),
                   ),
                   TextField(
+                    keyboardType: TextInputType.number,
                     controller: provider.invoiceAmount,
                     decoration: InputDecoration(
                       hintText: 'Valor',
@@ -273,7 +275,7 @@ class _AddPageState extends State<AddPage> {
                   ButtonWidget(
                     title: 'Salvar',
                     onTap: () async {
-                      await provider.checkSave();
+                      await provider.checkSave(context);
                       log('salvou');
                       // ignore: use_build_context_synchronously
                     },

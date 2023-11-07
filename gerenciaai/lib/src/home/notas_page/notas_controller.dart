@@ -1,50 +1,39 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:gerenciaai/src/home/home_page/home_page_controller.dart';
+import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
+import 'package:gerenciaai/src/home/models/nota_model.dart';
 
 class NotasController extends ChangeNotifier {
-  final List<NotaModel> _notas = [
-    NotaModel(
-      notaName: 'Nota um',
-      notaData: '11 Set 2001',
-      notaDescription: 'Essa nota foi do servico de vender droga',
-      notaPrice: 200.00,
-    ),
-    NotaModel(
-      notaName: 'Nota dois',
-      notaData: '23 Jan 2023',
-      notaDescription: 'Essa nota foi do servico de vender rins',
-      notaPrice: 1000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota tres',
-      notaData: '05 Maio 2023',
-      notaDescription: 'Essa nota foi do servico de vender gente',
-      notaPrice: 2000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota quatro',
-      notaData: '11 Set 2001',
-      notaDescription: 'Essa nota foi do servico de vender droga',
-      notaPrice: 200.00,
-    ),
-    NotaModel(
-      notaName: 'Nota cinco',
-      notaData: '23 Jan 2023',
-      notaDescription: 'Essa nota foi do servico de vender rins',
-      notaPrice: 1000.00,
-    ),
-    NotaModel(
-      notaName: 'Nota seis',
-      notaData: '05 Maio 2023',
-      notaDescription: 'Essa nota foi do servico de vender gente',
-      notaPrice: 2000.00,
-    ),
-  ];
+  final GetNotasFiscaisServicies _getNotasFiscaisServicies =
+      GetNotasFiscaisServicies();
+
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+
+  final List<NotaModel> _notas = [];
+
   List<NotaModel> get notas => _notas;
 
   TextEditingController search = TextEditingController();
 
   List<NotaModel> filteredNotas = [];
+
+  NotasController() {
+    // Adicione a inicialização no construtor
+    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+      _notas.clear();
+      _notas.addAll(listaDeNotas);
+      filteredNotas = _notas;
+      isLoadingFunc();
+      notifyListeners();
+    });
+  }
+
+  changeIsLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   void searchNotas(String value) {
     final searchTerm = value.toLowerCase();
@@ -56,13 +45,20 @@ class NotasController extends ChangeNotifier {
             nota.notaData.toLowerCase().contains(searchTerm) ||
             nota.notaDescription.toLowerCase().contains(searchTerm);
       }).toList();
-
-      filteredNotas;
     }
 
-    if (filteredNotas.isEmpty) {
-      filteredNotas = [];
+    for (final value in filteredNotas) {
+      log(value.notaData);
+      log(value.notaDescription);
+      log(value.notaName);
+      log(value.notaPrice);
     }
+
     notifyListeners();
+  }
+
+  Future<void> isLoadingFunc() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await changeIsLoading(false);
   }
 }

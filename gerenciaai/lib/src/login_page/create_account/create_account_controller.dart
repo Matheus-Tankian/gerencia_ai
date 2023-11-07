@@ -114,8 +114,9 @@ class CreateAccountController extends ChangeNotifier {
       AuthenticationService authenticationService = AuthenticationService();
 
       await authenticationService.userName(
-        name: newNome.text,
-        email: newEmail.text,
+        name: newNome.text.trim(),
+        email: newEmail.text.trim(),
+        senha: newSenha.text.trim(),
       );
 
       await authenticationService
