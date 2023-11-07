@@ -61,6 +61,7 @@ class _ListNotassWidgetState extends State<ListNotassWidget> {
                       MaterialPageRoute(
                         builder: (context) => PageNota(
                           id: index,
+                          link: notas[index].linkPdf,
                           nome: notas[index].notaName,
                           data: notas[index].notaData,
                           descricao: notas[index].notaDescription,

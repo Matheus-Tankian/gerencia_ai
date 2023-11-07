@@ -26,6 +26,7 @@ class GetNotasFiscaisServicies {
               notaData: data['data'],
               notaDescription: data['descricao'],
               notaPrice: data['valorNota'],
+              linkPdf: data['linkPdf'],
             );
             notas.add(nota);
           }
@@ -45,6 +46,7 @@ class GetNotasFiscaisServicies {
     required String data,
     required String valor,
     required String descricao,
+    required String linkPdf,
   }) async {
     try {
       await _firebaseFirestore
@@ -56,6 +58,7 @@ class GetNotasFiscaisServicies {
         'descricao': descricao,
         'nomeNota': nomeNota,
         'valorNota': valor,
+        'linkPdf': linkPdf,
       });
     } catch (e) {
       log('Erro ao adicionar documentos: $e');

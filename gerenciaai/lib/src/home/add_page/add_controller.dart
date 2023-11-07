@@ -80,28 +80,24 @@ class AddController extends ChangeNotifier {
     } else {
       changeDescriptionIsValid(true);
     }
-
-    // if (file.isEmpty || file == '') {
-    //   changeFileIsValid(false);
-    // } else {
-    //   changeFileIsValid(true);
-    // }
   }
 
-  Future<void> checkSave(BuildContext context) async {
+  Future<void> checkSave(BuildContext context, String link) async {
     await checkValidate();
-    // eu nao add o fileIsValid
     _getNotasFiscaisServicies.consultarNotas();
+    changeFileIsValid(true);
     if ((_nameInvoiceIsValid &&
-            _dateWorkIsValid &&
-            _invoiceAmountIsValid &&
-            _descriptionIsValid) ==
-        true) {
+                _dateWorkIsValid &&
+                _invoiceAmountIsValid &&
+                _descriptionIsValid) ==
+            true &&
+        link != '') {
       String getAddNotas = await _getNotasFiscaisServicies.addNotasToken(
         data: dateWork.text,
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,
+        linkPdf: link,
       );
       if (getAddNotas == 'sucesso') {
         // ignore: use_build_context_synchronously
@@ -124,6 +120,8 @@ class AddController extends ChangeNotifier {
           ),
         );
       }
+    } else if (link == '') {
+      changeFileIsValid(false);
     }
   }
 }

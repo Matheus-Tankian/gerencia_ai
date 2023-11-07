@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/src/widgets/pdf_widget.dart';
 
 class PageNota extends StatelessWidget {
   const PageNota({
@@ -8,6 +9,7 @@ class PageNota extends StatelessWidget {
     this.valor,
     this.descricao,
     this.id,
+    this.link,
   });
 
   final String? nome;
@@ -15,6 +17,7 @@ class PageNota extends StatelessWidget {
   final double? valor;
   final String? descricao;
   final int? id;
+  final String? link;
 
   @override
   Widget build(BuildContext context) {
@@ -211,21 +214,47 @@ class PageNota extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(
-                        height: 260,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFf5f5f5),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PdfWidget(pdf: link!),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 260,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFf5f5f5),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(8),
+                            ),
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 2,
+                            ),
                           ),
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 2,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.picture_as_pdf_rounded,
+                                size: 100,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Toque aqui para acessar o PDF',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                        child:
-                            const Center(child: Text('O arquivo esta vazio!')),
                       ),
                     ],
                   ),

@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:gerenciaai/src/home/add_page/add_controller.dart';
@@ -14,7 +16,36 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  String filePath = '';
+  PlatformFile? pickedFile;
+  PlatformFile? uploadTask;
+  String url = '';
+
+  bool isVisibility = false;
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles();
+
+    if (result == null) return;
+    setState(() {
+      pickedFile = result.files.first;
+    });
+  }
+
+  Future<void> uploadFile() async {
+    final path = 'files/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    final uploadTask = ref.putFile(file);
+
+    final snapshot = await uploadTask.whenComplete(() {});
+
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    log('url: $urlDownload');
+    setState(() {
+      url = urlDownload.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,17 +234,9 @@ class _AddPageState extends State<AddPage> {
                       child: Row(
                         children: [
                           ElevatedButton(
-                            onPressed: () async {
-                              FilePickerResult? result =
-                                  await FilePicker.platform.pickFiles(
-                                type: FileType.custom,
-                                allowedExtensions: ['pdf'],
-                              );
-
-                              if (result != null) {
-                                PlatformFile file = result.files.first;
-                                filePath = file.path ?? '';
-                              }
+                            onPressed: () {
+                              selectFile();
+                              log('nome: $pickedFile');
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.black,
@@ -242,10 +265,11 @@ class _AddPageState extends State<AddPage> {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            filePath != ''
-                                ? filePath
+                            pickedFile != null
+                                ? (pickedFile!.name.length > 20
+                                    ? '${pickedFile!.name.substring(0, 20)}...'
+                                    : pickedFile!.name)
                                 : 'Nenhum arquivo escolhido',
-                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: Color(0xffADADAD),
                               fontSize: 16,
@@ -275,10 +299,28 @@ class _AddPageState extends State<AddPage> {
                   ButtonWidget(
                     title: 'Salvar',
                     onTap: () async {
-                      await provider.checkSave(context);
-                      log('salvou');
+                      setState(() {
+                        isVisibility = true;
+                      });
+
+                      if (pickedFile != null) {
+                        await uploadFile();
+                      }
                       // ignore: use_build_context_synchronously
+                      await provider.checkSave(context, url);
+                      setState(() {
+                        isVisibility = false;
+                      });
                     },
+                  ),
+                  const SizedBox(height: 20),
+                  Visibility(
+                    visible: isVisibility,
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xffF9A826),
+                      ),
+                    ),
                   ),
                 ],
               ),
