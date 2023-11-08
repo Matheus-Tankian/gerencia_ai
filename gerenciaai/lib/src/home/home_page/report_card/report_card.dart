@@ -64,7 +64,7 @@ class _ReportCardState extends State<ReportCard> {
                               controller: provider.mesController,
                               keyboardType: TextInputType.datetime,
                               decoration: const InputDecoration(
-                                hintText: 'Mes',
+                                hintText: 'Mês',
                                 hintStyle: TextStyle(
                                   color: Color(0xffADADAD),
                                 ),
