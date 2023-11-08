@@ -63,10 +63,16 @@ class AddController extends ChangeNotifier {
       changeNameInvoiceIsValid(true);
     }
 
-    if (dateWork.text.isEmpty && dateWork.text.trim().length != 10) {
+    if (dateWork.text.isEmpty) {
       changeDateWorkIsValid(false);
-    } else if (dateWork.text.trim().length == 10) {
-      changeDateWorkIsValid(true);
+    } else {
+      final dateRegExp = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+      final isValid = dateRegExp.hasMatch(dateWork.text);
+      if (isValid) {
+        changeDateWorkIsValid(true);
+      } else {
+        changeDateWorkIsValid(false);
+      }
     }
 
     if (invoiceAmount.text.isEmpty) {
