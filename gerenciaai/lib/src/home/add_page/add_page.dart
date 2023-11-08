@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -41,7 +40,7 @@ class _AddPageState extends State<AddPage> {
     final snapshot = await uploadTask.whenComplete(() {});
 
     final urlDownload = await snapshot.ref.getDownloadURL();
-    log('url: $urlDownload');
+
     setState(() {
       url = urlDownload.toString();
     });
@@ -236,7 +235,6 @@ class _AddPageState extends State<AddPage> {
                           ElevatedButton(
                             onPressed: () {
                               selectFile();
-                              log('nome: $pickedFile');
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.black,
@@ -329,34 +327,5 @@ class _AddPageState extends State<AddPage> {
         ),
       ),
     );
-  }
-}
-
-class DateInputController extends TextEditingController {
-  @override
-  TextSpan buildTextSpan(
-      {required BuildContext context, TextStyle? style, bool? withComposing}) {
-    final text = this.text;
-    final span = TextSpan(style: style, text: text);
-
-    // Check if the entered text matches the expected date format (dd/mm/yyyy).
-    if (text.isEmpty) {
-      return span;
-    }
-
-    final dateRegExp = RegExp(r'^\d{2}/\d{2}/\d{4}$');
-    final isValid = dateRegExp.hasMatch(text);
-
-    if (isValid) {
-      log('deu certo $text');
-      return span;
-    } else {
-      log('deu errado $text');
-      // If the input doesn't match the expected format, show an error style.
-      return TextSpan(
-        style: style?.copyWith(color: Colors.red),
-        text: text,
-      );
-    }
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/src/home/home_page/report_card/report_card_controller.dart';
 import 'package:gerenciaai/src/home/models/nota_model.dart';
@@ -110,9 +108,7 @@ class _ReportCardState extends State<ReportCard> {
                           ),
                           const Spacer(),
                           InkWell(
-                            //mes/ano
                             onTap: () {
-                              log('Controller ${provider.anoController.text}');
                               if (provider.anoMesController.text.isNotEmpty &&
                                   provider.mesController.text.isNotEmpty) {
                                 provider.searchNotas(
@@ -178,8 +174,6 @@ class _ReportCardState extends State<ReportCard> {
                           const Spacer(),
                           InkWell(
                             onTap: () {
-                              //ano
-                              log('Controller ${provider.anoController.text}');
                               provider.searchNotas(provider.anoController.text);
                             },
                             child: Container(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/src/home/models/nota_model.dart';
@@ -62,7 +60,6 @@ class ReportController extends ChangeNotifier {
         total += price;
       }
     }
-    log('total $total');
     notifyListeners();
   }
 
