@@ -63,9 +63,9 @@ class AddController extends ChangeNotifier {
       changeNameInvoiceIsValid(true);
     }
 
-    if (dateWork.text.isEmpty) {
+    if (dateWork.text.isEmpty && dateWork.text.trim().length != 10) {
       changeDateWorkIsValid(false);
-    } else {
+    } else if (dateWork.text.trim().length == 10) {
       changeDateWorkIsValid(true);
     }
 
@@ -93,7 +93,7 @@ class AddController extends ChangeNotifier {
             true &&
         link != '') {
       String getAddNotas = await _getNotasFiscaisServicies.addNotasToken(
-        data: dateWork.text,
+        data: dateWork.text.trim(),
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,

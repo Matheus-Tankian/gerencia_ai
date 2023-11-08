@@ -45,54 +45,55 @@ class HomePageController extends ChangeNotifier {
   }
 
   Future<void> passaMes() async {
+    final String ano = DateTime.now().year.toString();
     for (int i = 0; i < 12; i++) {
       if (i == 0) {
-        searchNotas('01/2023');
+        searchNotas('01/$ano');
 
         valoresMensais.add(total);
       }
       if (i == 1) {
-        searchNotas('02/2023');
+        searchNotas('02/$ano');
         valoresMensais.add(total);
       }
       if (i == 2) {
-        searchNotas('03/2023');
+        searchNotas('03/$ano');
         valoresMensais.add(total);
       }
       if (i == 3) {
-        searchNotas('04/2023');
+        searchNotas('04/$ano');
         valoresMensais.add(total);
       }
       if (i == 4) {
-        searchNotas('05/2023');
+        searchNotas('05/$ano');
         valoresMensais.add(total);
       }
       if (i == 5) {
-        searchNotas('06/2023');
+        searchNotas('06/$ano');
         valoresMensais.add(total);
       }
       if (i == 6) {
-        searchNotas('07/2023');
+        searchNotas('07/$ano');
         valoresMensais.add(total);
       }
       if (i == 7) {
-        searchNotas('08/2023');
+        searchNotas('08/$ano');
         valoresMensais.add(total);
       }
       if (i == 8) {
-        searchNotas('09/2023');
+        searchNotas('09/$ano');
         valoresMensais.add(total);
       }
       if (i == 9) {
-        searchNotas('10/2023');
+        searchNotas('10/$ano');
         valoresMensais.add(total);
       }
       if (i == 10) {
-        searchNotas('11/2023');
+        searchNotas('11/$ano');
         valoresMensais.add(total);
       }
       if (i == 11) {
-        searchNotas('12/2023');
+        searchNotas('12/$ano');
         valoresMensais.add(total);
       }
     }

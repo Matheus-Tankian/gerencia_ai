@@ -336,9 +336,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const SizedBox(height: 26),
-                      const Text(
-                        'Graficos anual de 2023',
-                        style: TextStyle(
+                      Text(
+                        'Graficos anual de ${DateTime.now().year.toString()}',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

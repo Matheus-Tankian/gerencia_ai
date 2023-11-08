@@ -110,7 +110,7 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.datetime,
                     controller: provider.dateWork,
                     decoration: InputDecoration(
-                      hintText: 'Data do serviço',
+                      hintText: 'Data do serviço ex: 01/01/2023',
                       hintStyle: const TextStyle(
                         color: Color(0xffADADAD),
                       ),
