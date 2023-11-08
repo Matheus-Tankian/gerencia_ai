@@ -4,26 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/src/home/models/nota_model.dart';
 
-class NotasController extends ChangeNotifier {
+class ReportController extends ChangeNotifier {
   final GetNotasFiscaisServicies _getNotasFiscaisServicies =
       GetNotasFiscaisServicies();
-
-  bool _isLoading = true;
-  bool get isLoading => _isLoading;
+  List<NotaModel> filteredNotas = [];
 
   final List<NotaModel> _notas = [];
   List<NotaModel> get notas => _notas;
 
-  TextEditingController search = TextEditingController();
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
 
-  List<NotaModel> filteredNotas = [];
+  double total = 0.0;
 
-  NotasController() {
-    // Adicione a inicialização no construtor
+  ReportController() {
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
       _notas.clear();
       _notas.addAll(listaDeNotas);
-      filteredNotas = _notas;
+      filteredNotas = [];
       isLoadingFunc();
       notifyListeners();
     });
@@ -37,27 +35,24 @@ class NotasController extends ChangeNotifier {
   void searchNotas(String value) {
     final searchTerm = value.toLowerCase();
     if (searchTerm.isEmpty || searchTerm == '') {
-      filteredNotas = _notas;
+      filteredNotas = [];
     } else {
       filteredNotas = _notas.where((nota) {
-        return nota.notaName.toLowerCase().contains(searchTerm) ||
-            nota.notaData.toLowerCase().contains(searchTerm) ||
-            nota.notaDescription.toLowerCase().contains(searchTerm);
+        return nota.notaData.toLowerCase().contains(searchTerm);
       }).toList();
+      total = 0.0;
+      for (final value in filteredNotas) {
+        double price = double.tryParse(value.notaPrice) ?? 0.0;
+        total += price;
+      }
     }
-
-    for (final value in filteredNotas) {
-      log(value.notaData);
-      log(value.notaDescription);
-      log(value.notaName);
-      log(value.notaPrice);
-    }
-
+    log('total $total');
     notifyListeners();
   }
 
   Future<void> isLoadingFunc() async {
     await Future.delayed(const Duration(seconds: 1));
     await changeIsLoading(false);
+    notifyListeners();
   }
 }

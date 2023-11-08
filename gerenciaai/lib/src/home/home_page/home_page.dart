@@ -7,7 +7,7 @@ import 'package:gerenciaai/src/home/models/nota_model.dart';
 import 'package:gerenciaai/src/widgets/card_notas_widget.dart';
 import 'package:gerenciaai/src/widgets/chart_widget.dart';
 import 'package:gerenciaai/src/widgets/page_nota.dart';
-import 'package:gerenciaai/src/widgets/report_card.dart';
+import 'package:gerenciaai/src/home/home_page/report_card/report_card.dart';
 import 'package:provider/provider.dart';
 import 'package:gerenciaai/src/app/routes/routes.dart';
 
