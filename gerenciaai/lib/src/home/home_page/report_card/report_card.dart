@@ -112,7 +112,11 @@ class _ReportCardState extends State<ReportCard> {
                           ),
                           const Spacer(),
                           InkWell(
-                            onTap: () {},
+                            //mes/ano
+                            onTap: () {
+                              log('Controller ${provider.anoController.text}');
+                              provider.searchNotas(provider.anoController.text);
+                            },
                             child: Container(
                               height: 40,
                               width: 40,
@@ -143,11 +147,10 @@ class _ReportCardState extends State<ReportCard> {
                             height: 40,
                             width: 180,
                             child: TextField(
-                              onChanged: (value) {
-                                //ano ano
-                                log(value);
-                                provider.searchNotas(value);
-                              },
+                              controller: provider.anoController,
+
+                              //ano ano
+
                               keyboardType: TextInputType.datetime,
                               decoration: const InputDecoration(
                                 hintText: 'Ano',
@@ -170,7 +173,11 @@ class _ReportCardState extends State<ReportCard> {
                           ),
                           const Spacer(),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              //ano
+                              log('Controller ${provider.anoController.text}');
+                              provider.searchNotas(provider.anoController.text);
+                            },
                             child: Container(
                               height: 40,
                               width: 40,
@@ -275,10 +282,12 @@ class _ReportCardState extends State<ReportCard> {
                     //
                     Visibility(
                       visible: provider.filteredNotas.isNotEmpty,
-                      replacement: const Center(
+                      replacement: Center(
                         child: Text(
-                          'Informe um ano',
-                          style: TextStyle(
+                          provider.anoController.text.isEmpty
+                              ? 'Informe o Ano'
+                              : 'Não existe notas nesse ano',
+                          style: const TextStyle(
                             color: Colors.red,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

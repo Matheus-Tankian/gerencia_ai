@@ -9,6 +9,8 @@ class ReportController extends ChangeNotifier {
       GetNotasFiscaisServicies();
   List<NotaModel> filteredNotas = [];
 
+  TextEditingController anoController = TextEditingController();
+
   final List<NotaModel> _notas = [];
   List<NotaModel> get notas => _notas;
 
