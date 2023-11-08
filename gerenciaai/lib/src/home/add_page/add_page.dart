@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -41,7 +40,7 @@ class _AddPageState extends State<AddPage> {
     final snapshot = await uploadTask.whenComplete(() {});
 
     final urlDownload = await snapshot.ref.getDownloadURL();
-    log('url: $urlDownload');
+
     setState(() {
       url = urlDownload.toString();
     });
@@ -110,7 +109,7 @@ class _AddPageState extends State<AddPage> {
                     keyboardType: TextInputType.datetime,
                     controller: provider.dateWork,
                     decoration: InputDecoration(
-                      hintText: 'Data do serviço',
+                      hintText: 'Data do serviço ex: 01/01/2023',
                       hintStyle: const TextStyle(
                         color: Color(0xffADADAD),
                       ),
@@ -236,7 +235,6 @@ class _AddPageState extends State<AddPage> {
                           ElevatedButton(
                             onPressed: () {
                               selectFile();
-                              log('nome: $pickedFile');
                             },
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.black,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/src/home/models/nota_model.dart';
@@ -18,9 +16,22 @@ class NotasController extends ChangeNotifier {
 
   List<NotaModel> filteredNotas = [];
 
+  bool _disposed = false;
+
   NotasController() {
-    // Adicione a inicialização no construtor
+    inicia();
+  }
+
+  @override
+  void dispose() {
+    _disposed =
+        true; // Marque o controlador como descartado ao chamar dispose()
+    super.dispose();
+  }
+
+  void inicia() {
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+      if (_disposed) return; // Verifique se o controlador foi descartado
       _notas.clear();
       _notas.addAll(listaDeNotas);
       filteredNotas = _notas;
@@ -46,18 +57,12 @@ class NotasController extends ChangeNotifier {
       }).toList();
     }
 
-    for (final value in filteredNotas) {
-      log(value.notaData);
-      log(value.notaDescription);
-      log(value.notaName);
-      log(value.notaPrice);
-    }
-
     notifyListeners();
   }
 
   Future<void> isLoadingFunc() async {
     await Future.delayed(const Duration(seconds: 1));
+    if (_disposed) return;
     await changeIsLoading(false);
   }
 }

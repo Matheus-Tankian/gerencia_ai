@@ -239,17 +239,17 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ],
                               ),
-                              InkWell(
-                                onTap: () {},
-                                child: const Text(
-                                  'Esqueceu a senha?',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xff707070),
-                                  ),
-                                ),
-                              ),
+                              // InkWell(
+                              //   onTap: () {},
+                              //   child: const Text(
+                              //     'Esqueceu a senha?',
+                              //     style: TextStyle(
+                              //       fontSize: 16,
+                              //       fontWeight: FontWeight.normal,
+                              //       color: Color(0xff707070),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           const SizedBox(height: 38),

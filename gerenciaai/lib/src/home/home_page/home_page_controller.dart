@@ -15,13 +15,101 @@ class HomePageController extends ChangeNotifier {
   String _userName = '';
   String get userName => _userName;
 
+  List<NotaModel> filteredNotas = [];
+
+  final List<NotaModel> _notas = [];
+  List<NotaModel> get notas => _notas;
+
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
-  final List<NotaModel> _notasRecentes = [];
+  List<double> valoresMensais = [];
+
+  double total = 0.0;
+
+  bool _disposed = false;
 
   HomePageController() {
+    inicia();
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  Future<void> inicia() async {
+    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) async {
+      if (_disposed) return;
+      _notas.clear();
+      _notas.addAll(listaDeNotas);
+      filteredNotas = [];
+      valoresMensais.clear();
+
+      await passaMes();
+    });
+
     isLoadingFunc();
+    notifyListeners();
+  }
+
+  Future<void> passaMes() async {
+    final String ano = DateTime.now().year.toString();
+    for (int i = 0; i < 12; i++) {
+      if (i == 0) {
+        searchNotas('01/$ano');
+
+        valoresMensais.add(total);
+      }
+      if (i == 1) {
+        searchNotas('02/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 2) {
+        searchNotas('03/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 3) {
+        searchNotas('04/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 4) {
+        searchNotas('05/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 5) {
+        searchNotas('06/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 6) {
+        searchNotas('07/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 7) {
+        searchNotas('08/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 8) {
+        searchNotas('09/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 9) {
+        searchNotas('10/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 10) {
+        searchNotas('11/$ano');
+        valoresMensais.add(total);
+      }
+      if (i == 11) {
+        searchNotas('12/$ano');
+        valoresMensais.add(total);
+      }
+    }
+
+    notifyListeners();
   }
 
   changeUserName(String value) {
@@ -34,7 +122,23 @@ class HomePageController extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<NotaModel> get notasRecentes => _notasRecentes;
+  void searchNotas(String value) {
+    final searchTerm = value.toLowerCase();
+    if (searchTerm.isEmpty || searchTerm == '') {
+      filteredNotas = [];
+    } else {
+      filteredNotas = _notas.where((nota) {
+        return nota.notaData.toLowerCase().contains(searchTerm);
+      }).toList();
+      total = 0.0;
+      for (final value in filteredNotas) {
+        double price = double.tryParse(value.notaPrice) ?? 0.0;
+        total += price;
+      }
+    }
+
+    notifyListeners();
+  }
 
   List<BarChartGroupData> createBarChartGroups(List<double> dataList) {
     final List<BarChartGroupData> barGroups = [];
@@ -71,6 +175,7 @@ class HomePageController extends ChangeNotifier {
     AuthenticationService authenticationService = AuthenticationService();
     name = await authenticationService.getUserName(email: email);
     changeUserName(name);
+
     // authenticationService.setupAuthStateListener();
   }
 
@@ -80,6 +185,7 @@ class HomePageController extends ChangeNotifier {
 
   Future<void> isLoadingFunc() async {
     await Future.delayed(const Duration(seconds: 1));
+    if (_disposed) return;
     await changeIsLoading(false);
   }
 }

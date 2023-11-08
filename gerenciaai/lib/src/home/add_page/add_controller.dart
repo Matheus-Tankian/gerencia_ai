@@ -66,7 +66,13 @@ class AddController extends ChangeNotifier {
     if (dateWork.text.isEmpty) {
       changeDateWorkIsValid(false);
     } else {
-      changeDateWorkIsValid(true);
+      final dateRegExp = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+      final isValid = dateRegExp.hasMatch(dateWork.text);
+      if (isValid) {
+        changeDateWorkIsValid(true);
+      } else {
+        changeDateWorkIsValid(false);
+      }
     }
 
     if (invoiceAmount.text.isEmpty) {
@@ -93,7 +99,7 @@ class AddController extends ChangeNotifier {
             true &&
         link != '') {
       String getAddNotas = await _getNotasFiscaisServicies.addNotasToken(
-        data: dateWork.text,
+        data: dateWork.text.trim(),
         descricao: description.text,
         nomeNota: nameInvoice.text,
         valor: invoiceAmount.text,

@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Visibility(
-                  visible: true, //provider.consultarNotas().isEmpty,
+                  visible: true,
                   replacement: Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: InkWell(
@@ -336,9 +336,9 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       const SizedBox(height: 26),
-                      const Text(
-                        'Graficos anual de 2023',
-                        style: TextStyle(
+                      Text(
+                        'Graficos anual de ${DateTime.now().year.toString()}',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -348,20 +348,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 200,
                         child: BarChartWidget(
-                          barGroupList: provider.createBarChartGroups([
-                            100,
-                            200,
-                            300,
-                            400,
-                            500,
-                            600,
-                            700,
-                            800,
-                            900,
-                            1000,
-                            1100,
-                            1200
-                          ]),
+                          barGroupList: provider.createBarChartGroups(
+                            provider.valoresMensais,
+                          ),
                         ),
                       ),
                     ],
