@@ -348,20 +348,9 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 200,
                         child: BarChartWidget(
-                          barGroupList: provider.createBarChartGroups([
-                            100,
-                            200,
-                            300,
-                            400,
-                            500,
-                            600,
-                            700,
-                            800,
-                            900,
-                            1000,
-                            1100,
-                            1200
-                          ]),
+                          barGroupList: provider.createBarChartGroups(
+                            provider.valoresMensais,
+                          ),
                         ),
                       ),
                     ],

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
@@ -35,71 +33,71 @@ class HomePageController extends ChangeNotifier {
   }
 
   Future<void> inicia() async {
-    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) async {
       _notas.clear();
       _notas.addAll(listaDeNotas);
       filteredNotas = [];
-
-      //searchNotas('11/2023');
-      passaMes();
-      isLoadingFunc();
-      notifyListeners();
+      await passaMes();
     });
+
+    isLoadingFunc();
+    notifyListeners();
   }
 
-  void passaMes() {
-    searchNotas('01/2023');
-    log(total.toString());
-    valoresMensais[0] = total;
+  Future<void> passaMes() async {
+    for (int i = 0; i < 12; i++) {
+      if (i == 0) {
+        searchNotas('01/2023');
 
-    // if (i == 1) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 2) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 3) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 4) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 5) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 6) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 7) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 8) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 9) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 10) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
-    // if (i == 11) {
-    //   searchNotas('01/2023');
-    //   valoresMensais[i] = total;
-    // }
+        valoresMensais.add(total);
+      }
+      if (i == 1) {
+        searchNotas('02/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 2) {
+        searchNotas('03/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 3) {
+        searchNotas('04/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 4) {
+        searchNotas('05/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 5) {
+        searchNotas('06/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 6) {
+        searchNotas('07/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 7) {
+        searchNotas('08/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 8) {
+        searchNotas('09/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 9) {
+        searchNotas('10/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 10) {
+        searchNotas('11/2023');
+        valoresMensais.add(total);
+      }
+      if (i == 11) {
+        searchNotas('12/2023');
+        valoresMensais.add(total);
+      }
+    }
 
-    //createBarChartGroups();
-
-    // notifyListeners();
+    notifyListeners();
   }
 
   changeUserName(String value) {
@@ -126,7 +124,7 @@ class HomePageController extends ChangeNotifier {
         total += price;
       }
     }
-    log('total $total');
+
     notifyListeners();
   }
 
