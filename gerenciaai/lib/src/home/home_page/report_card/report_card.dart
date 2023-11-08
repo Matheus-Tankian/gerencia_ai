@@ -57,12 +57,13 @@ class _ReportCardState extends State<ReportCard> {
                             style: TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 8),
-                          const SizedBox(
+                          SizedBox(
                             height: 40,
                             width: 120,
                             child: TextField(
+                              controller: provider.mesController,
                               keyboardType: TextInputType.datetime,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Mes',
                                 hintStyle: TextStyle(
                                   color: Color(0xffADADAD),
@@ -87,10 +88,7 @@ class _ReportCardState extends State<ReportCard> {
                             width: 120,
                             child: TextField(
                               keyboardType: TextInputType.datetime,
-                              onChanged: (value) {
-                                log(value);
-                                provider.searchNotas(value);
-                              },
+                              controller: provider.anoMesController,
                               decoration: const InputDecoration(
                                 hintText: 'Ano',
                                 hintStyle: TextStyle(
@@ -115,7 +113,13 @@ class _ReportCardState extends State<ReportCard> {
                             //mes/ano
                             onTap: () {
                               log('Controller ${provider.anoController.text}');
-                              provider.searchNotas(provider.anoController.text);
+                              if (provider.anoMesController.text.isNotEmpty &&
+                                  provider.mesController.text.isNotEmpty) {
+                                provider.searchNotas(
+                                    '${provider.mesController.text}/${provider.anoMesController.text}');
+                              } else {
+                                provider.searchNotas('');
+                              }
                             },
                             child: Container(
                               height: 40,
@@ -139,7 +143,7 @@ class _ReportCardState extends State<ReportCard> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Text(
-                            'Informe o Ano:',
+                            'Informe o Ano',
                             style: TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 8),
@@ -285,8 +289,8 @@ class _ReportCardState extends State<ReportCard> {
                       replacement: Center(
                         child: Text(
                           provider.anoController.text.isEmpty
-                              ? 'Informe o Ano'
-                              : 'Não existe notas nesse ano',
+                              ? 'Informe o ${widget.title == 'Anual' ? 'Ano' : 'Mês e o Ano'} '
+                              : 'Não existe notas nesse ${widget.title == 'Anual' ? 'Ano' : 'Mês'} ',
                           style: const TextStyle(
                             color: Colors.red,
                             fontSize: 20,

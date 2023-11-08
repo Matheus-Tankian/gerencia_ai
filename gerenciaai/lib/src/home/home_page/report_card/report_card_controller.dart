@@ -11,6 +11,10 @@ class ReportController extends ChangeNotifier {
 
   TextEditingController anoController = TextEditingController();
 
+  TextEditingController anoMesController = TextEditingController();
+
+  TextEditingController mesController = TextEditingController();
+
   final List<NotaModel> _notas = [];
   List<NotaModel> get notas => _notas;
 
