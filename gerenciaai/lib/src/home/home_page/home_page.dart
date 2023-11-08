@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Visibility(
-                  visible: true, //provider.consultarNotas().isEmpty,
+                  visible: true,
                   replacement: Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: InkWell(

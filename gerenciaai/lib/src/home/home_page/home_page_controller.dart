@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:gerenciaai/services/authentication_service.dart';
@@ -15,13 +17,89 @@ class HomePageController extends ChangeNotifier {
   String _userName = '';
   String get userName => _userName;
 
+  List<NotaModel> filteredNotas = [];
+
+  final List<NotaModel> _notas = [];
+  List<NotaModel> get notas => _notas;
+
   bool _isLoading = true;
   bool get isLoading => _isLoading;
 
-  final List<NotaModel> _notasRecentes = [];
+  List<double> valoresMensais = [];
+
+  double total = 0.0;
 
   HomePageController() {
-    isLoadingFunc();
+    inicia();
+    notifyListeners();
+  }
+
+  Future<void> inicia() async {
+    _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+      _notas.clear();
+      _notas.addAll(listaDeNotas);
+      filteredNotas = [];
+
+      //searchNotas('11/2023');
+      passaMes();
+      isLoadingFunc();
+      notifyListeners();
+    });
+  }
+
+  void passaMes() {
+    searchNotas('01/2023');
+    log(total.toString());
+    valoresMensais[0] = total;
+
+    // if (i == 1) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 2) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 3) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 4) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 5) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 6) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 7) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 8) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 9) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 10) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+    // if (i == 11) {
+    //   searchNotas('01/2023');
+    //   valoresMensais[i] = total;
+    // }
+
+    //createBarChartGroups();
+
+    // notifyListeners();
   }
 
   changeUserName(String value) {
@@ -34,7 +112,23 @@ class HomePageController extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<NotaModel> get notasRecentes => _notasRecentes;
+  void searchNotas(String value) {
+    final searchTerm = value.toLowerCase();
+    if (searchTerm.isEmpty || searchTerm == '') {
+      filteredNotas = [];
+    } else {
+      filteredNotas = _notas.where((nota) {
+        return nota.notaData.toLowerCase().contains(searchTerm);
+      }).toList();
+      total = 0.0;
+      for (final value in filteredNotas) {
+        double price = double.tryParse(value.notaPrice) ?? 0.0;
+        total += price;
+      }
+    }
+    log('total $total');
+    notifyListeners();
+  }
 
   List<BarChartGroupData> createBarChartGroups(List<double> dataList) {
     final List<BarChartGroupData> barGroups = [];
