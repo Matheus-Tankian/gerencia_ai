@@ -393,7 +393,9 @@ class _TabelaState extends State<Tabela> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          notas[index].notaName,
+                          notas[index].notaName.length <= 7
+                              ? notas[index].notaName
+                              : '${notas[index].notaName.substring(0, 7)}..',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
