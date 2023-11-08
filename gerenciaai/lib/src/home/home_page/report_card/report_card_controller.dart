@@ -23,14 +23,24 @@ class ReportController extends ChangeNotifier {
 
   double total = 0.0;
 
+  bool _disposed = false;
+
   ReportController() {
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
+      if (_disposed) return;
       _notas.clear();
       _notas.addAll(listaDeNotas);
       filteredNotas = [];
       isLoadingFunc();
       notifyListeners();
     });
+  }
+
+  @override
+  void dispose() {
+    _disposed =
+        true; // Marque o controlador como descartado ao chamar dispose()
+    super.dispose();
   }
 
   changeIsLoading(bool value) {
@@ -58,6 +68,7 @@ class ReportController extends ChangeNotifier {
 
   Future<void> isLoadingFunc() async {
     await Future.delayed(const Duration(seconds: 1));
+    if (_disposed) return;
     await changeIsLoading(false);
     notifyListeners();
   }

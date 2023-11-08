@@ -27,16 +27,27 @@ class HomePageController extends ChangeNotifier {
 
   double total = 0.0;
 
+  bool _disposed = false;
+
   HomePageController() {
     inicia();
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   Future<void> inicia() async {
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) async {
+      if (_disposed) return;
       _notas.clear();
       _notas.addAll(listaDeNotas);
       filteredNotas = [];
+      valoresMensais.clear();
+
       await passaMes();
     });
 
@@ -164,6 +175,7 @@ class HomePageController extends ChangeNotifier {
     AuthenticationService authenticationService = AuthenticationService();
     name = await authenticationService.getUserName(email: email);
     changeUserName(name);
+
     // authenticationService.setupAuthStateListener();
   }
 
@@ -173,6 +185,7 @@ class HomePageController extends ChangeNotifier {
 
   Future<void> isLoadingFunc() async {
     await Future.delayed(const Duration(seconds: 1));
+    if (_disposed) return;
     await changeIsLoading(false);
   }
 }
