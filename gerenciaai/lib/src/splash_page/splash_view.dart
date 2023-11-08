@@ -17,10 +17,10 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     var aux = _boxStorage.userEmail.read('email');
+    log('aux: $aux');
     Future.delayed(const Duration(seconds: 2), () {
       if (_boxStorage.userLogged.read('logged').toString().trim() != 'false' &&
-          aux != null &&
-          1 == 3) {
+          aux != null) {
         Navigator.of(context).pushReplacementNamed(Routes.homePage);
         log('aaa');
       } else {
