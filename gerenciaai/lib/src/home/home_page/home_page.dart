@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const Text(
-                            'Tenha um bom dia!',
+                            'Seja bem vindo!',
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 16,
