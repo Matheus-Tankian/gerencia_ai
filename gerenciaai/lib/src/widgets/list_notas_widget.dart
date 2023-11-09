@@ -19,8 +19,7 @@ class ListNotassWidget extends StatefulWidget {
 class _ListNotassWidgetState extends State<ListNotassWidget> {
   @override
   Widget build(BuildContext context) {
-    List<NotaModel> notas = widget
-        .controller.filteredNotas; // Obtenha as notas diretamente do controller
+    List<NotaModel> notas = widget.controller.filteredNotas;
 
     return notas.isEmpty
         ? const Center(
@@ -60,7 +59,7 @@ class _ListNotassWidgetState extends State<ListNotassWidget> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PageNota(
-                          id: index,
+                          id: notas[index].id,
                           link: notas[index].linkPdf,
                           nome: notas[index].notaName,
                           data: notas[index].notaData,

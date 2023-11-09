@@ -22,6 +22,7 @@ class GetNotasFiscaisServicies {
           for (QueryDocumentSnapshot document in querySnapshot.docs) {
             Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             NotaModel nota = NotaModel(
+              id: document.id,
               notaName: data['nomeNota'],
               notaData: data['data'],
               notaDescription: data['descricao'],
@@ -81,6 +82,19 @@ class GetNotasFiscaisServicies {
       }
     } catch (e) {
       log('Erro ao consultar os dados: $e');
+    }
+  }
+
+  Future<void> excluirNota(String notaId) async {
+    try {
+      await _firebaseFirestore
+          .collection('notasFiscais')
+          .doc(_boxStorage.userToken.read('token').toString().trim())
+          .collection('nota')
+          .doc(notaId)
+          .delete();
+    } catch (e) {
+      print('Erro ao excluir nota: $e');
     }
   }
 }

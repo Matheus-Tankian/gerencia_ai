@@ -24,14 +24,13 @@ class NotasController extends ChangeNotifier {
 
   @override
   void dispose() {
-    _disposed =
-        true; // Marque o controlador como descartado ao chamar dispose()
+    _disposed = true;
     super.dispose();
   }
 
   void inicia() {
     _getNotasFiscaisServicies.consultarNotas().listen((listaDeNotas) {
-      if (_disposed) return; // Verifique se o controlador foi descartado
+      if (_disposed) return;
       _notas.clear();
       _notas.addAll(listaDeNotas);
       filteredNotas = _notas;

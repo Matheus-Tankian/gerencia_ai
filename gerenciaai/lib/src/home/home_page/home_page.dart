@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const Text(
-                            'Tenha um bom dia!',
+                            'Seja bem vindo!',
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontSize: 16,
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 16),
                           const Text(
-                            'Serviços recentes',
+                            'Serviços',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -85,9 +85,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      //
                       const Spacer(),
-
                       Container(
                           padding: const EdgeInsets.only(top: 8),
                           child: IconButton(
@@ -186,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                           MaterialPageRoute(
                                             builder: (context) => PageNota(
                                               link: notas[index].linkPdf,
-                                              id: index,
+                                              id: notas[index].id,
                                               nome: notas[index].notaName,
                                               data: notas[index].notaData,
                                               descricao:

@@ -36,8 +36,7 @@ class ReportController extends ChangeNotifier {
 
   @override
   void dispose() {
-    _disposed =
-        true; // Marque o controlador como descartado ao chamar dispose()
+    _disposed = true;
     super.dispose();
   }
 

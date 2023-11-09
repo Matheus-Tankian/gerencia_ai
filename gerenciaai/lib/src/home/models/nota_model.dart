@@ -1,4 +1,5 @@
 class NotaModel {
+  final String id;
   final String notaName;
   final String notaData;
   final String notaDescription;
@@ -6,6 +7,7 @@ class NotaModel {
   final String linkPdf;
 
   NotaModel({
+    required this.id,
     required this.notaDescription,
     required this.notaName,
     required this.notaData,

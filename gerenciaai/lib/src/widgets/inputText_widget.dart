@@ -37,8 +37,7 @@ class _InputTextWidgetState extends State<InputTextWidget> {
       children: [
         TextField(
           controller: widget.textController,
-          keyboardType: widget.textInputType ??
-              TextInputType.text, // TextInputType.emailAddress,
+          keyboardType: widget.textInputType ?? TextInputType.text,
           decoration: InputDecoration(
             suffixIcon: widget.suffixIcon,
             hintText: widget.hintText,

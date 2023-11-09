@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:gerenciaai/services/get_notas_fiscasi_servicies.dart';
 import 'package:gerenciaai/src/widgets/pdf_widget.dart';
 
 class PageNota extends StatelessWidget {
@@ -16,11 +19,13 @@ class PageNota extends StatelessWidget {
   final String? data;
   final double? valor;
   final String? descricao;
-  final int? id;
+  final String? id;
   final String? link;
 
   @override
   Widget build(BuildContext context) {
+    GetNotasFiscaisServicies getNotasFiscaisServicies =
+        GetNotasFiscaisServicies();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -71,15 +76,35 @@ class PageNota extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_rounded,
-                    color: Colors.white,
-                    size: 24,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        log('card aq');
+                        log('id no card: $id');
+                        getNotasFiscaisServicies.excluirNota(id!);
+                        Future.delayed(const Duration(milliseconds: 500));
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
                 Padding(
