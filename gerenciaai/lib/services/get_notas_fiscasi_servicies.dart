@@ -22,6 +22,7 @@ class GetNotasFiscaisServicies {
           for (QueryDocumentSnapshot document in querySnapshot.docs) {
             Map<String, dynamic> data = document.data() as Map<String, dynamic>;
             NotaModel nota = NotaModel(
+              id: document.id,
               notaName: data['nomeNota'],
               notaData: data['data'],
               notaDescription: data['descricao'],

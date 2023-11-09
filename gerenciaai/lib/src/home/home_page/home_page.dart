@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                                           MaterialPageRoute(
                                             builder: (context) => PageNota(
                                               link: notas[index].linkPdf,
-                                              id: index,
+                                              id: notas[index].id,
                                               nome: notas[index].notaName,
                                               data: notas[index].notaData,
                                               descricao:
