@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:gerenciaai/src/home/add_page/add_controller.dart';
 import 'package:gerenciaai/src/widgets/button_widget.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
@@ -21,8 +22,16 @@ class _AddPageState extends State<AddPage> {
 
   bool isVisibility = false;
 
+  final maskFormatter = MaskTextInputFormatter(
+    mask: '##/##/####', // Define a máscara de data
+    filter: {"#": RegExp(r'[0-9]')}, // Define que apenas números são permitidos
+  );
+
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
 
     if (result == null) return;
     setState(() {
@@ -108,6 +117,7 @@ class _AddPageState extends State<AddPage> {
                   TextField(
                     keyboardType: TextInputType.datetime,
                     controller: provider.dateWork,
+                    inputFormatters: [maskFormatter],
                     decoration: InputDecoration(
                       hintText: 'Data do serviço ex: 01/01/2023',
                       hintStyle: const TextStyle(
