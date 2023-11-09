@@ -405,7 +405,8 @@ class _TabelaState extends State<Tabela> {
                           ),
                         ),
                         Text(
-                          notas[index].notaPrice,
+                          double.parse(notas[index].notaPrice)
+                              .toStringAsFixed(2),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

@@ -83,4 +83,18 @@ class GetNotasFiscaisServicies {
       log('Erro ao consultar os dados: $e');
     }
   }
+
+  Future<void> excluirNota(String notaId) async {
+    try {
+      await _firebaseFirestore
+          .collection('notasFiscais')
+          .doc(_boxStorage.userToken.read('token').toString().trim())
+          .collection('nota')
+          .doc(notaId)
+          .delete();
+    } catch (e) {
+      // Substituído por print
+      print('Erro ao excluir nota: $e');
+    }
+  }
 }
