@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GerenciaAi',
-      theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          // useMaterial3: true,
-          ),
+      theme: ThemeData(),
       initialRoute: Routes.splashPage,
       routes: {
         Routes.splashPage: (context) => const SplashView(),
@@ -40,7 +37,6 @@ class MyApp extends StatelessWidget {
         Routes.createAccountPage: (context) => const CreateAccountView(),
         Routes.homePage: (context) => const Home(),
       },
-      //home: const SplashView(),
     );
   }
 }

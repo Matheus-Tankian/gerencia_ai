@@ -175,8 +175,6 @@ class HomePageController extends ChangeNotifier {
     AuthenticationService authenticationService = AuthenticationService();
     name = await authenticationService.getUserName(email: email);
     changeUserName(name);
-
-    // authenticationService.setupAuthStateListener();
   }
 
   Stream<List<NotaModel>> consultarNotas() {
@@ -199,5 +197,3 @@ LinearGradient get _barsGradient => const LinearGradient(
       begin: Alignment.bottomCenter,
       end: Alignment.topCenter,
     );
-
-//esse modelo e temporario

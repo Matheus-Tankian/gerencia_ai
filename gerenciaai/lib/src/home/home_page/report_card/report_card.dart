@@ -148,9 +148,6 @@ class _ReportCardState extends State<ReportCard> {
                             width: 180,
                             child: TextField(
                               controller: provider.anoController,
-
-                              //ano ano
-
                               keyboardType: TextInputType.datetime,
                               decoration: const InputDecoration(
                                 hintText: 'Ano',
@@ -235,7 +232,6 @@ class _ReportCardState extends State<ReportCard> {
                       ),
                     ),
                     const SizedBox(height: 8),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
                       child: Visibility(
@@ -277,7 +273,6 @@ class _ReportCardState extends State<ReportCard> {
                       color: Colors.black,
                     ),
                     const SizedBox(height: 4),
-                    //
                     Visibility(
                       visible: provider.filteredNotas.isNotEmpty,
                       replacement: Center(

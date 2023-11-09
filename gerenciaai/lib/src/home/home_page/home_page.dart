@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 16),
                           const Text(
-                            'Serviços recentes',
+                            'Serviços',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -85,9 +85,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      //
                       const Spacer(),
-
                       Container(
                           padding: const EdgeInsets.only(top: 8),
                           child: IconButton(

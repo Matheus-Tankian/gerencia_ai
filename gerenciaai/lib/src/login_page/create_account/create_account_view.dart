@@ -100,7 +100,6 @@ class CreateAccountView extends StatelessWidget {
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          // Alinhe os elementos ao centro
                           children: [
                             const Text(
                               'Nome',
@@ -140,7 +139,6 @@ class CreateAccountView extends StatelessWidget {
                                         fontSize: 16,
                                       ),
                                     ),
-                                    //'E-mail invalido',
                                     child: const Text(
                                       'Nome invalido',
                                       style: TextStyle(

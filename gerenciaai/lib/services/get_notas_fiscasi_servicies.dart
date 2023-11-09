@@ -94,7 +94,6 @@ class GetNotasFiscaisServicies {
           .doc(notaId)
           .delete();
     } catch (e) {
-      // Substituído por print
       print('Erro ao excluir nota: $e');
     }
   }

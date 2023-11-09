@@ -19,8 +19,7 @@ class ListNotassWidget extends StatefulWidget {
 class _ListNotassWidgetState extends State<ListNotassWidget> {
   @override
   Widget build(BuildContext context) {
-    List<NotaModel> notas = widget
-        .controller.filteredNotas; // Obtenha as notas diretamente do controller
+    List<NotaModel> notas = widget.controller.filteredNotas;
 
     return notas.isEmpty
         ? const Center(
