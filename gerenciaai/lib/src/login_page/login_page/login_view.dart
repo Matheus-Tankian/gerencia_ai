@@ -230,7 +230,7 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                   const SizedBox(width: 12),
                                   const Text(
-                                    'Continuar loggado?',
+                                    'Continuar logado?',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
